@@ -1,6 +1,6 @@
 # RentalApp
 
-A Chicago housing rental service web application
+A Chicago housing rental service web application using Node.js and MongoDB.
 
 
 Installation
