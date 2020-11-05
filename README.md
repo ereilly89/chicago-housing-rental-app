@@ -1,6 +1,6 @@
 # RentalApp
 
-A housing rental service web app based in the Chicago area
+A Chicago housing rental service web application
 
 
 Installation
