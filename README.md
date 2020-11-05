@@ -1,4 +1,7 @@
 # RentalApp
 
-Running the app-
-nodemon start
+Running the app
+----------------
+command:  nodemon start
+url:  localhost:3000
+
