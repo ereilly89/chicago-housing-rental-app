@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  <body>
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-12">
+    			<h3><%= page %></h3>
+                <table>
+                    <ul>
+                        <li><a href="http://localhost:3000">Home</a></li>
+                    </ul>
+                </table>
+
+                  <% listingArray.forEach( c => { %>
+          					<div>
+          					  <h2> <%= c.name %> <h2>
+          					  <p> <%= c.description %> </p>
+                      <p><a href="http://localhost:3000/host/<%= c.host_id %>"><%= c.host_id %></a><p>
+          					</div>
+                    <br>
+          				<% }) %>
+    	</div>
+	</div>
+  </body>
+</html>

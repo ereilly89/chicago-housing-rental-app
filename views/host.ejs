@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  <body>
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-12">
+    			<h3><%= page %></h3>
+                <table>
+                    <ul>
+                        <li><a href="http://localhost:3000">Home</a></li>
+                    </ul>
+                </table>
+                <table class="table">
+          				<tr>
+          					<th>Name</th>
+                    <th>Host Since</th>
+          					<th>About</th>
+                    <th>Location</th>
+                    <th>Neighborhood</th>
+                    <th>Total Listings</th>
+                    <th>Rating</th>
+          				</tr>
+                  <% hostArray.forEach( c => { %>
+          					<tr>
+          					  <td> <%= c.host_name %> </td>
+          					  <td> <%= c.host_since %> </td>
+                      <td> <%= c.host_about %> </td>
+                      <td> <%= c.host_location %> </td>
+                      <td> <%= c.host_neighbourhood %> </td>
+                      <td> <%= c.host_listings_count %> </td>
+                      <td></td>
+          					</tr>
+          				<% }) %>
+          			</table>
+    	</div>
+	</div>
+  </body>
+</html>
