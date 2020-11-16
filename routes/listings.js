@@ -33,7 +33,7 @@ router.get('/:list_id', (req, res) => {
 
        listing.toArray( (err, theListing) => {
            if (err) throw err;
-           res.render('listing', {theListing: theListing, page: 'Listing'});
+           res.render('listing_details', {theListing: theListing, page: 'Listing'});
            dbs.close();
        });
     });
