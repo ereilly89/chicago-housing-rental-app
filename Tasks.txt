@@ -1,0 +1,48 @@
+
+Tasks
+--------------------------------
+
+-Add user authentication
+    -Sign up page
+        -First, Last, email, password, password confirmation
+    -Sign in page
+        -email or user_id and password
+        -option for signing in as host or tenant
+    -Sign out option
+
+
+-Add host view of application
+    -View feed of rental listings
+        -Select rental listing to view more info
+
+    -Add Listing
+        -Name, description, address(converted to latitude/longitude), neighborhood_overview, picture, property_type, room_type, bathrooms, bedrooms, beds, amenities, minimum_nights, maximum_nights, availability, and price options
+        -includes price recommender for setting price
+    -Edit Listing
+
+    -Leave tenant review
+        - 1-10 respect rating w/ message
+
+    -Add rental history w/ summary info page (revenue, availability)
+
+    -Add host's personal profile page
+        -option for editing account info.  Ex) edit host name, about, location, and neighborhood
+        -display host rating and reviews of host
+        -display all host's listings
+
+-Add tenant view of application
+    -Add Browse/filter feed of rental listings
+        -Select rental listing to view more info
+
+    -Schedule rental for available time period
+        -security deposit / payment info
+    -Cancel rental
+
+    -Leave rental review
+        -accuracy rating, cleanliness rating, communication rating, location rating, value rating, and message
+
+    -View host personal profile pages
+    -Add rental history page
+    -Add tenant's personal profile page
+        -option for editing account info.  Ex) First, Last name
+        -display tenant rating and host reviews of tenant

@@ -22,7 +22,7 @@ mycol.insert_many(list)
 # Hosts
 
 """
-mycol = mydb["Host"]
+mycol = mydb["Hosts"]
 hosts = listing[["host_id", "host_url", "host_name", "host_since", "host_location", "host_about", "host_neighbourhood", "host_listings_count"]]
 pd.DataFrame.drop_duplicates(hosts)
 
