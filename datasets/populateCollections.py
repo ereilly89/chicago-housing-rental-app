@@ -6,7 +6,7 @@ mydb = myclient["RentalDB"]
 
 listing = pd.read_csv("listings.csv")
 
-# Listings
+# Generate Listings Collection
 
 """
 mycol = mydb["Listing"]
@@ -19,21 +19,24 @@ for key in listDict:
 mycol.insert_many(list)
 """
 
-# Hosts
+# Generate Hosts Collection
 
 """
-mycol = mydb["Hosts"]
+mycol = mydb["Host"]
+
 hosts = listing[["host_id", "host_url", "host_name", "host_since", "host_location", "host_about", "host_neighbourhood", "host_listings_count"]]
-pd.DataFrame.drop_duplicates(hosts)
+hosts = hosts.drop_duplicates(subset=["host_id"])
 
 listDict = hosts.to_dict('records')
 list = []
 for key in listDict:
+    key["host_id"] = str(key["host_id"])
+    key["password"] = "$2b$10$0WLUV8Qq5sJgx1BZTZ/hAujp9nL0SJMRzSfqxFOEg9Pqt9cw/R7mC"
     list.append(key)
 mycol.insert_many(list)
 """
 
-# Reviews
+# Generate Reviews Collection
 
 """
 reviews = pd.read_csv("reviews.csv")
@@ -46,15 +49,17 @@ for key in listDict:
 mycol.insert_many(list)
 """
 
-# Tenants
+# Generate Tenants Collection
 
 """
 reviews = mydb["Review"]
 list = []
 for x in reviews.find():
     row_dict = {}
-    row_dict["tenant_id"] = x["reviewer_id"]
-    row_dict["name"] = x["reviewer_name"]
+    row_dict["tenant_id"] = str(x["reviewer_id"])
+    row_dict["first"] = x["reviewer_name"]
+    row_dict["last"] = ""
+    row_dict["password"] = "$2b$10$0WLUV8Qq5sJgx1BZTZ/hAujp9nL0SJMRzSfqxFOEg9Pqt9cw/R7mC"
     list.append(row_dict)
 users = mydb["Tenant"]
 users.insert_many(list)

@@ -1,0 +1,23 @@
+<h1>Chicago Housing Rentals</h1>
+
+<nav class="navbar">
+  <ul>
+    <% if (user) { %>
+    <a href="/listings">Home</a> |
+    <% } else { %>
+    <a href="/">Home</a> |
+    <% } %>
+    <a href="/about">About</a> |
+    <% if (user) { %>
+      <% if (userType == "host") { %>
+        <a style="color:#FFFFFF">Welcome, <%= user.host_id %></a> |
+      <% } else { %>
+        <a style="color:#FFFFFF">Welcome, <%= user.tenant_id %></a> |
+      <% } %>
+      
+      <a href="/signout">Sign Out</a>
+    <% } else { %>
+      <a href="/signin"></a>
+    <% } %>
+  </ul>
+</nav><br>

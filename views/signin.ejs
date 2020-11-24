@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+     <% include partials/head %>
+  </head>
+  <body>
+	<div class="container-fluid">
+        <% include partials/navigation %>
+		<h3><%= page %></h3>
+        <br>
+		<div class="row">
+		  <div class="col-12">
+            <form id="signin-form">
+    			<input id="username" type="username" placeholder="Username" maxLength=21 style="margin-bottom:3px"></input><br>
+                <input id="password" type="password" placeholder="Password"></input><br>
+                <p class="error" id="signin-error"></p>
+                <label for="tenant">Tenant</label>
+                <input id="tenant-radio" name="user" type="radio" checked="true"></input>
+                <label for="host">Host</label>
+                <input id="host-radio" name="user" type="radio"></input><br>
+                <input type="submit" value="Submit"></input>
+            </form>
+            <br><p>Don't have an account?</p>
+            <a href="/tenant/signup">Sign up as tenant</a><br>
+            <a href="/host/signup">Sign up as host</a>
+		  </div>
+		</div>
+	</div>
+  </body>
+  <script src="/javascripts/authentication.js"></script>
+</html>
