@@ -1,9 +1,19 @@
 var express = require('express');
 var router = express.Router();
+
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
 
-router.get('/:host_id', (req, res) => {
+/*
+//displays the host signup page
+router.get('/signup', function(req, res){
+  res.render('host_signup',{page:"Host Sign Up"});
+});
+*/
+
+//Other host related routes
+
+router.get('/profile/:host_id', (req, res) => {
      var host_id = Number(req.params.host_id);
      MongoClient.connect(url, function(err, dbs) {
        if (err) throw err;
@@ -20,5 +30,6 @@ router.get('/:host_id', (req, res) => {
         });
     });
 });
+
 
 module.exports = router;

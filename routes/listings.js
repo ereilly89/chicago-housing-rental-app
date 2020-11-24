@@ -1,10 +1,13 @@
 var express = require('express');
 var router = express.Router();
+const { requireAuth } = require('../middleware/authMiddleware');
+
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
 
+
 /* GET all rental listings. */
-router.get('/', function(req, res, next) {
+router.get('/', requireAuth, function(req, res, next) {
   MongoClient.connect(url, function(err, dbs) {
     if (err) throw err;
     const dbo = dbs.db("RentalDB");
@@ -23,7 +26,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* Get specific rental listing from id */
-router.get('/:list_id', (req, res) => {
+router.get('/:list_id', requireAuth, (req, res) => {
      var list_id = Number(req.params.list_id);
      MongoClient.connect(url, function(err, dbs) {
        if (err) throw err;
