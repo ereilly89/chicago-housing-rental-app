@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 const { Tenant } = require('../model/tenant')
 const { Host } = require('../model/host')
 
-
+//Create JSON Web Token for authenticating users
 const maxAge = 24 * 60 * 60;
 const createToken = (id) => {
     return jwt.sign({ id }, global.config.secretKey, {
@@ -13,25 +13,32 @@ const createToken = (id) => {
 }
 
 
+//  "tenant/signup"
 module.exports.tenant_signup_get = (req, res) => {
-    res.render('tenant_signup', {page:"Tenant Sign Up"});
+    res.render('auth_tenant_signup', {page:"Tenant Sign Up"});
 }
 
+
+//  "host/signup"
 module.exports.host_signup_get = (req, res) => {
-    res.render('host_signup', {page:"Host Sign Up"});
+    res.render('auth_host_signup', {page:"Host Sign Up"});
 }
 
+
+//  "signin"
 module.exports.signin_get = (req, res) => {
-    res.render('signin', {page: "Sign In"});
+    res.render('auth_signin', {page: "Sign In"});
 }
 
+
+//  tenant signup form
 module.exports.tenant_signup_post = async (req, res) => {
     if (req.body.password1.length < 8) {
         res.json({message: 'Password must be at least 8 characters.'});
     } else if (req.body.password1 != req.body.password2) {
         res.json({message: 'Passwords must match.'})
     } else {
-    
+
         try {
             const user = await Tenant.create({
                 tenant_id: req.body.tenant_id,
@@ -50,6 +57,8 @@ module.exports.tenant_signup_post = async (req, res) => {
     }
 }
 
+
+//  host signup form
 module.exports.host_signup_post = async (req, res) => {
     if (req.body.password1.length < 8) {
         res.json({message: 'Password must be at least 8 characters.'});
@@ -79,6 +88,8 @@ module.exports.host_signup_post = async (req, res) => {
     }
 }
 
+
+//  tenant signin form
 module.exports.tenant_signin_post = (req, res) => {
     if (req.body.tenant_id == "") {
         res.json({message: "Please enter a username."});
@@ -108,6 +119,8 @@ module.exports.tenant_signin_post = (req, res) => {
     }
 }
 
+
+//  host signin form
 module.exports.host_signin_post = (req, res) => {
     if (req.body.host_id == "") {
         res.json({message: "Please enter a username."});
@@ -136,6 +149,8 @@ module.exports.host_signin_post = (req, res) => {
     }
 }
 
+
+//  "signout"
 module.exports.signout_get = (req, res) => {
     res.cookie('jwt', "", { maxAge: 1 });
     res.cookie('userType', "", { maxAge: 1});

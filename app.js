@@ -7,49 +7,44 @@ var mongoose = require('mongoose');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var listingsRouter = require('./routes/listings');
-var hostRouter = require('./routes/host');
-var tenantRouter = require('./routes/tenant');
-var aboutRouter = require('./routes/about');
-const authRoutes = require('./routes/authRoutes');
+var aboutRouter = require('./routes/aboutRouter');
+const authRouter = require('./routes/authRouter');
+const profileRouter = require('./routes/profileRouter');
+var listingRouter = require('./routes/listingRouter');
 
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
-
 global.config = require('./config');
-
 const MONGOURL = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
-
 var app = express();
 
-// middleware
+
+// Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(logger('dev'));
+app.use(express.urlencoded({ extended: false }));
+app.use('*', checkUser);
 
 
+//Database connection
 mongoose.connect(MONGOURL)
 .then(( )=> console.log("DB connected"))
 .catch(error => console.log(error));
 
-app.use(bodyParser.json());
 
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
 
-app.use(express.urlencoded({ extended: false }));
-
-
-app.use('*', checkUser);
-
+//Routes
 app.use('/', indexRouter);
-app.use('/listings', listingsRouter);
-app.use('/host', hostRouter);
-app.use('/tenant', tenantRouter);
-app.use('/about', aboutRouter);
-app.use(authRoutes);
+app.use(listingRouter);
+app.use(aboutRouter);
+app.use(profileRouter);
+app.use(authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

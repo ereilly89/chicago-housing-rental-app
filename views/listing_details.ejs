@@ -7,21 +7,15 @@
     <div class="container-fluid">
     	<div class="row">
     		<div class="col-12">
-    			<h3><%= page %></h3>
-                <table>
-                    <ul>
-                        <li><a href="http://localhost:3000">Home</a></li>
-                    </ul>
-                </table>
-
-                <% theListing.forEach( c => { %>
+          <% include partials/navigation %>
+    			<h3><%= page %></h3><br>
+            <% theListing.forEach( c => { %>
   					<div>
-      					  <h2><a href="http://localhost:3000/listings/<%= c.id %>"><%= c.name %></a><h2>
-                          <img width="960" height="540" src="<%= c.picture_url %>" />
-      					  <p> <%= c.description %> </p>
-                          <p><a href="http://localhost:3000/host/profile/<%= c.host_id %>"><%= c.host_id %></a><p>
-  					</div>
-                    <br>
+    					  <h3><a href="http://localhost:3000/listings/<%= c.id %>"><%= c.name %></a><h2>
+                <img width="960" height="540" src="<%= c.picture_url %>" />
+    					  <p> <%= c.description %> </p>
+                <p><a href="http://localhost:3000/host/profile/<%= c.host_id %>"><%= c.host_id %></a><p>
+  					</div><br>
       			<% }) %>
     	</div>
 	</div>

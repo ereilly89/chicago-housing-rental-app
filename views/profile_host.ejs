@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  <body>
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-12">
+          <% include partials/navigation %>
+    			<h3><%= page %></h3>
+          <h2>Host Name: <%= host.host_name %></h2>
+          <h3>Rating</h3>
+          <h3>Host Since: <%= host.host_since %></h3>
+          <h3>About: <%= host.host_about %> </h3>
+          <h3>Location: <%= host.host_location %> </h3>
+          <h3>Neighborhood: <%= host.host_neighbourhood %> </h3>
+          <h3>Total Listings: <%= host.host_listings_count %> </h3>
+        </div>
+    	</div>
+	</div>
+  </body>
+</html>
