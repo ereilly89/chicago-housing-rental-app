@@ -1,4 +1,7 @@
 
+//Database connection
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
 
 // Home page
 module.exports.index_get = (req, res) => {

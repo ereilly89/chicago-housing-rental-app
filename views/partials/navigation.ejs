@@ -1,23 +1,22 @@
 <h1>Chicago Housing Rentals</h1>
 
-<nav class="navbar">
   <ul>
     <% if (user) { %>
-    <a href="/listings">Home</a> |
+    <li><a href="/listings">Home</a></li> |
     <% } else { %>
-    <a href="/">Home</a> |
+    <li><a href="/">Home</a></li> |
     <% } %>
-    <a href="/about">About</a> |
+    <li><a href="/about">About</a></li> |
     <% if (user) { %>
+      <li class="topnav-right"><a href="/signout">Sign Out</a></li>
       <% if (userType == "host") { %>
-        <a style="color:#FFFFFF">Welcome, <%= user.host_id %></a> |
+        <li class="topnav-right"><a href="/profile/host/<%= user.host_id %>" style="color:#FFFFFF">My Profile</a></li>
+        <li class="topnav-right"><a style="color:#FFFFFF">Welcome, <%= user.host_id %></a></li> |
+        <li style="color:#FFFFFF"><a>Create New Listing</a></li>
       <% } else { %>
-        <a style="color:#FFFFFF">Welcome, <%= user.tenant_id %></a> |
+        <li class="topnav-right"><a href="/profile/tenant/<%= user.tenant_id %>" style="color:#FFFFFF">My Profile</a></li>
+        <li class="topnav-right"><a style="color:#FFFFFF">Welcome, <%= user.tenant_id %></a></li> |
       <% } %>
-
-      <a href="/signout">Sign Out</a>
-    <% } else { %>
-      <a href="/signin"></a>
     <% } %>
   </ul>
-</nav><br>
+<br>

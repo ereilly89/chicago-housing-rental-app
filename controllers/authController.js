@@ -1,8 +1,8 @@
 var jwt = require('jsonwebtoken');
 
 //import models
-const { Tenant } = require('../model/tenant')
-const { Host } = require('../model/host')
+const { Tenant } = require('../models/tenant')
+const { Host } = require('../models/host')
 
 //Create JSON Web Token for authenticating users
 const maxAge = 24 * 60 * 60;
@@ -15,19 +15,19 @@ const createToken = (id) => {
 
 //  "tenant/signup"
 module.exports.tenant_signup_get = (req, res) => {
-    res.render('auth_tenant_signup', {page:"Tenant Sign Up"});
+    res.render('auth_tenant_signup', { page: "Tenant Sign Up" });
 }
 
 
 //  "host/signup"
 module.exports.host_signup_get = (req, res) => {
-    res.render('auth_host_signup', {page:"Host Sign Up"});
+    res.render('auth_host_signup', { page: "Host Sign Up" });
 }
 
 
 //  "signin"
 module.exports.signin_get = (req, res) => {
-    res.render('auth_signin', {page: "Sign In"});
+    res.render('auth_signin', { page: "Sign In" });
 }
 
 

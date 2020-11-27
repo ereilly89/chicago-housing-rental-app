@@ -1,7 +1,7 @@
 
 //Import models
-const { Tenant } = require('../model/tenant')
-const { Host } = require('../model/host')
+const { Tenant } = require('../models/tenant')
+const { Host } = require('../models/host')
 
 //Database connection
 const MongoClient = require('mongodb').MongoClient;
@@ -15,11 +15,11 @@ module.exports.profile_tenant_get = (req, res) => {
    .then(data => {
      console.log(data);
      if (!data)
-       res.render('profile_tenant', {page: 'Tenant Profile', message:"Profile not found."});
-     else res.render('profile_tenant', {tenant: data, page: 'Tenant Profile'});
+       res.render('profile_tenant', { tenant: null, page: 'Error', message: "Tenant profile not found."});
+     else res.render('profile_tenant', { tenant: data, page: 'Tenant Profile'});
    })
    .catch(err => {
-     res.render('profile_tenant', {page: 'Tenant Profile', message:"Error retrieving profile with id=" + id});
+     res.render('profile_tenant', { tenant: null, page: 'Error', message: "Error retrieving profile with id=" + id});
      console.log("err:"+err);
    });
 }
@@ -27,13 +27,15 @@ module.exports.profile_tenant_get = (req, res) => {
 
 // profile/host/:host_id
 module.exports.profile_host_get = (req, res) => {
-    var host_id = Number(req.params.host_id);
-    MongoClient.connect(url, function(err, dbs) {
-      if (err) throw err;
-      const dbo = dbs.db("RentalDB");
-
-      // Obtain a list of subjects
-      const host = dbo.collection("Host").findOne({host_id: host_id});
-      res.render('profile_host', {host: host, page: 'Host Profile'});
-   });
+  Host.findOne({"host_id" : req.params.host_id})
+  .then(data => {
+    console.log(data);
+    if (!data)
+      res.render('profile_host', {host: null, page: 'Error', message: "Host profile not found."});
+    else res.render('profile_host', {host: data, page: 'Host Profile'});
+  })
+  .catch(err => {
+    res.render('profile_host', {host: null, page: 'Error', message: "Error retrieving profile with id=" + id});
+    console.log("err:"+err);
+  });
 }

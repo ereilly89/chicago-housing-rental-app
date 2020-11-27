@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { Tenant } = require('../model/tenant');
-const { Host } = require('../model/host');
+const { Tenant } = require('../models/tenant');
+const { Host } = require('../models/host');
 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;

@@ -1,7 +1,7 @@
 
 //Import models
-const { Tenant } = require('../model/tenant')
-const { Host } = require('../model/host')
+const { Tenant } = require('../models/tenant')
+const { Host } = require('../models/host')
 
 //Database connection
 const MongoClient = require('mongodb').MongoClient;
@@ -21,7 +21,7 @@ module.exports.listings_get = (req, res) => {
   	listingResource.toArray( (err, rentalList) => {
         if (err) throw err;
     		console.log(rentalList);
-    		res.render('listings', {listingArray: rentalList, page: 'Rental Listings'});
+    		res.render('listings', { listingArray: rentalList, page: 'Rental Listings' });
     		dbs.close();
     });
     //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
@@ -40,7 +40,7 @@ module.exports.listing_id_get = (req, res) => {
 
     listing.toArray( (err, theListing) => {
         if (err) throw err;
-        res.render('listing_details', {theListing: theListing, page: 'Listing'});
+        res.render('listing_details', { theListing: theListing, page: 'Listing' });
         dbs.close();
     });
   });
