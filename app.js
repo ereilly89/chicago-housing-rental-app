@@ -14,11 +14,16 @@ var listingRouter = require('./routes/listingRouter');
 var reviewRouter = require('./routes/reviewRouter');
 
 
+var scheduleRouter = require('./routes/scheduleRouter');
+
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 global.config = require('./config');
 const MONGOURL = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
 var app = express();
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -48,6 +53,8 @@ app.use(aboutRouter);
 app.use(profileRouter);
 app.use(authRouter);
 app.use(reviewRouter);
+
+app.use(scheduleRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
