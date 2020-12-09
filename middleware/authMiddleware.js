@@ -21,6 +21,60 @@ const requireAuth = (req, res, next) => {
     }
 }
 
+
+//  require host authorization
+
+const requireHostAuth = (req, res, next) => {
+    const token = req.cookies.jwt;
+    const userType = req.cookies.userType;
+
+    //check json web token exists & is verified
+    if (token) {
+        jwt.verify(token, global.config.secretKey, (err, decodedToken) => {
+            if (err) {
+                console.log(err.message);
+                res.redirect('/signin');
+
+            } else if (userType == "host") {
+                console.log("Host authorized.");
+                console.log(decodedToken);
+                next();
+            } else {
+                console.log("User requires host authorization.");
+                res.redirect('/signin');
+            }
+        })
+    } else {
+        res.redirect('/signin');
+    }
+}
+
+// require tenant authorization
+const requireTenantAuth = (req, res, next) => {
+    const token = req.cookies.jwt;
+    const userType = req.cookies.userType;
+
+    //check json web token exists & is verified
+    if (token) {
+        jwt.verify(token, global.config.secretKey, (err, decodedToken) => {
+            if (err) {
+                console.log(err.message);
+                res.redirect('/signin');
+
+            } else if (userType == "tenant") {
+                console.log("Tenant authorized.");
+                console.log(decodedToken);
+                next();
+            } else {
+                console.log("User requires tenant authorization.");
+                res.redirect('/signin');
+            }
+        })
+    } else {
+        res.redirect('/signin');
+    }
+}
+
 // check current user
 
 const checkUser = (req, res, next) => {
@@ -56,4 +110,4 @@ const checkUser = (req, res, next) => {
 }
 
 
-module.exports = { requireAuth, checkUser };
+module.exports = { requireAuth, requireHostAuth, requireTenantAuth, checkUser };

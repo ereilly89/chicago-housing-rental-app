@@ -13,25 +13,25 @@ const createToken = (id) => {
 }
 
 
-//  "tenant/signup"
+//  GET "tenant/signup"
 module.exports.tenant_signup_get = (req, res) => {
     res.render('auth_tenant_signup', { page: "Tenant Sign Up" });
 }
 
 
-//  "host/signup"
+//  GET "host/signup"
 module.exports.host_signup_get = (req, res) => {
     res.render('auth_host_signup', { page: "Host Sign Up" });
 }
 
 
-//  "signin"
+//  GET "signin"
 module.exports.signin_get = (req, res) => {
     res.render('auth_signin', { page: "Sign In" });
 }
 
 
-//  tenant signup form
+//  POST "tenant/signup"
 module.exports.tenant_signup_post = async (req, res) => {
     if (req.body.password1.length < 8) {
         res.json({message: 'Password must be at least 8 characters.'});
@@ -58,7 +58,7 @@ module.exports.tenant_signup_post = async (req, res) => {
 }
 
 
-//  host signup form
+//  POST "host/signup"
 module.exports.host_signup_post = async (req, res) => {
     if (req.body.password1.length < 8) {
         res.json({message: 'Password must be at least 8 characters.'});
@@ -89,7 +89,7 @@ module.exports.host_signup_post = async (req, res) => {
 }
 
 
-//  tenant signin form
+//  POST "tenant/signin"
 module.exports.tenant_signin_post = (req, res) => {
     if (req.body.tenant_id == "") {
         res.json({message: "Please enter a username."});
@@ -120,7 +120,7 @@ module.exports.tenant_signin_post = (req, res) => {
 }
 
 
-//  host signin form
+//  POST "host/signin"
 module.exports.host_signin_post = (req, res) => {
     if (req.body.host_id == "") {
         res.json({message: "Please enter a username."});
@@ -150,7 +150,7 @@ module.exports.host_signin_post = (req, res) => {
 }
 
 
-//  "signout"
+//  GET "signout"
 module.exports.signout_get = (req, res) => {
     res.cookie('jwt', "", { maxAge: 1 });
     res.cookie('userType', "", { maxAge: 1});

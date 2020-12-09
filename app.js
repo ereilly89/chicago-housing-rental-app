@@ -11,6 +11,8 @@ var aboutRouter = require('./routes/aboutRouter');
 const authRouter = require('./routes/authRouter');
 const profileRouter = require('./routes/profileRouter');
 var listingRouter = require('./routes/listingRouter');
+var reviewRouter = require('./routes/reviewRouter');
+
 
 var scheduleRouter = require('./routes/scheduleRouter');
 
@@ -50,6 +52,7 @@ app.use(listingRouter);
 app.use(aboutRouter);
 app.use(profileRouter);
 app.use(authRouter);
+app.use(reviewRouter);
 
 app.use(scheduleRouter);
 
