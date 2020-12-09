@@ -18,6 +18,9 @@
                       <h2><a href="http://localhost:3000/listing/<%= c.id %>"><%= c.name %></a><h2>
                               <img width="960" height="540" src="<%= c.picture_url %>" />
                               <div>
+                                <% if (userType == "tenant") { %>
+                                <button><a href="http://localhost:3000/booking/<%= c.id %>">Schedule</a></button>
+                                <% } %>
                                 <h3>Bathrooms: <%= c.bathrooms %></h3>
                                 <h3>Bedrooms: <%= c.bedrooms %></h3>
                                 <h3>Beds: <%= c.beds %></h3>

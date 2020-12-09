@@ -7,8 +7,14 @@ const { Host } = require('../models/host')
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
 
+/*
 module.exports.schedule_get= (req,res,) => {
     res.render('schedule_bookings', { page: "Schedule Booking" });
+}
+*/
+
+module.exports.booking_listing_get = (req, res) => {
+  res.render('booking_schedule', { page: "Schedule Booking" });
 }
 
 /*module.exports.bookings_get= (req,res,next) => {
@@ -19,7 +25,8 @@ module.exports.schedule_get= (req,res,) => {
     .catch(error => res.send(error));//catch any erros 
 }
 */
-module.exports.bookings_post= (req,res,next) =>{
+
+module.exports.booking_post= (req,res,next) =>{
     const { bookingDate, name, email } = req.body;
   if (!bookingDate || !name || !email) {
     return res.status(400).json({
@@ -31,7 +38,8 @@ module.exports.bookings_post= (req,res,next) =>{
     .then(result => res.json(result.ops[0]))
     .catch(error => res.send(error));
 }
-module.exports.bookings_delete= (req,res,next) =>{
+
+module.exports.booking_delete= (req,res,next) =>{
     const { id } = req.params;
   const _id = ObjectID(id);
   req.collection.deleteOne({ _id })

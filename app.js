@@ -12,9 +12,7 @@ const authRouter = require('./routes/authRouter');
 const profileRouter = require('./routes/profileRouter');
 var listingRouter = require('./routes/listingRouter');
 var reviewRouter = require('./routes/reviewRouter');
-
-
-var scheduleRouter = require('./routes/scheduleRouter');
+var bookingRouter = require('./routes/bookingRouter');
 
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 global.config = require('./config');
@@ -53,8 +51,7 @@ app.use(aboutRouter);
 app.use(profileRouter);
 app.use(authRouter);
 app.use(reviewRouter);
-
-app.use(scheduleRouter);
+app.use(bookingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

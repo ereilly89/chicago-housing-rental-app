@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  
+  <body>
+    
+    <div class="container-fluid">
+        <div class="row">
+    	    <div class="col-12"> 
+                <% include partials/navigation %>
+               
+    			<h3><%= page %></h3><br>
+             <table class="table table-striped table-primary">
+              <thead>
+                <tr>  
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Tenant ID</th>
+                  <th>Price</th>
+                  <th>Schedule Date</th>
+                  <th>Cancel</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (bookingArray.length >0) { %>
+                    <% bookingArray.forEach(function(row){ %>
+                    <tr>
+                      <td><%= row.date_start %></td>
+                      <td><%= row.date_end %></td>
+                      <td><%= row.tenant_id %></td>
+                      <th><%= row.price %></th>
+                      <th><%= row.schedule_date %></th>
+                      <td><%= row.Cancel %></td>
+        
+            
+                      <td><a class="btn btn-primary btn-xs" href="/edit/<%= row._id %>"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-danger btn-xs" href="/delete/<%= row._id %>"><i class="fa fa-trash"></i></a>
+                      </td>
+                    </tr>
+                    <% })}else{ %>
+                        <tr>
+                            <td colspan="6">No bookings Found</td>
+                            
+                        </tr>
+                    <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+	</div>
+  </body>
+</html>

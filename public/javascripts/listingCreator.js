@@ -28,8 +28,6 @@ async function createListing() {
             host_since: form[16].value,
             number_of_reviews: 0,
             review_scores_rating: 100,
-            
-
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -89,7 +87,7 @@ async function getPrice(instance) {
         }),
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ya29.a0AfH6SMBTkajOXVGFTr4x1rBrQfct4-chjgywbWTgsQObhofiV47Shl5qoCRNIoazpU6UR5D8C4UkEUrUvZL7HwjiM74Jq1kK4gZes03EOkNxce-K9tt-aAGcLP3p0TBrnxuNFwP_XuODBGoOGI1qu1VVI4cMM7H-mnzaPU8GZICD',
+            'Authorization': 'Bearer ya29.a0AfH6SMC3nrrnhv8gN7E3ZQhVP9iszmK3KOA4wMcq75qRO4vv0jFWHyTUA_H6yq4rX8D9dV_-jo65Bkpy_vf_zOEH_ULeZErtldQLAiPCSRiTVxiXAUfNyHkHQ-bPy0tVGDGTOBi20A4jPtNO3jh-kJ1_ro-EMCjZGfxtsEhrXP1R',
             'Accept': 'application/json'
         }
     })
