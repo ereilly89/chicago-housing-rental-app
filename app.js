@@ -11,6 +11,8 @@ var aboutRouter = require('./routes/aboutRouter');
 const authRouter = require('./routes/authRouter');
 const profileRouter = require('./routes/profileRouter');
 var listingRouter = require('./routes/listingRouter');
+var reviewRouter = require('./routes/reviewRouter');
+
 
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 global.config = require('./config');
@@ -45,6 +47,7 @@ app.use(listingRouter);
 app.use(aboutRouter);
 app.use(profileRouter);
 app.use(authRouter);
+app.use(reviewRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

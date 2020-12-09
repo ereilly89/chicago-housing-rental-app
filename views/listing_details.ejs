@@ -9,14 +9,50 @@
     		<div class="col-12">
           <% include partials/navigation %>
     			<h3><%= page %></h3><br>
-            <% theListing.forEach( c => { %>
+           
   					<div>
-    					  <h3><a href="http://localhost:3000/listings/<%= c.id %>"><%= c.name %></a><h2>
-                <img width="960" height="540" src="<%= c.picture_url %>" />
-    					  <p> <%= c.description %> </p>
-                <p><a href="http://localhost:3000/profile/host/<%= c.host_id %>"><%= c.host_id %></a><p>
-  					</div><br>
-      			<% }) %>
+              <% if (theListing.name) { %>
+    					  <h3><a href="http://localhost:3000/listing/<%= theListing.id %>"><%= theListing.name %></a><h2>
+              <% } else { %>
+                <h3>NOT FOUND</h3>
+              <% } %>
+
+              <% if (theListing.picture_url) { %>
+              <img width="960" height="540" src="<%= theListing.picture_url %>" />
+              <% } %>
+
+              <% if (theListing.description) { %>
+                <p> <%= theListing.description %> </p>
+              <% } %>
+
+              <% if (theListing.host_id) { %>
+                <p><a href="http://localhost:3000/profile/host/<%= theListing.host_id %>"><%= theListing.host_id %></a><p>
+              <% } %>
+            </div><br><br>
+            
+            <div>
+              <h1>Reviews</h1><br>
+
+              <% if (reviewsArray.length == 0) { %>
+                <div>
+                  <h3>This listing doesn't have any reviews</h3>
+                </div>
+
+              <% } else { %>
+
+                <% reviewsArray.forEach( r => { %>
+                  <div>
+                    <h3><%= r.reviewer_name %></h3>
+                    <h3><%= r.date %></h3>
+                    <p><%= r.comments %></p>
+                  </div>
+                <% }); %>
+
+              <% } %>
+
+            </div>
+
+        </div>    
     	</div>
 	</div>
   </body>

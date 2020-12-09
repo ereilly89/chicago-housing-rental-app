@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  <body>
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-12">
+                
+                <% include partials/navigation %>
+                <h3><%= page %></h3><br>
+
+                <% listingArray.forEach( c => { %>
+                    <div>
+                        <h2>Property <a href="http://localhost:3000/listing/<%= c.id %>"><%= c.name %></a><h2>
+                        <h2>Rating: <%= c.rating %></h2><br>
+
+                        <% if (c.picture_url) { %>
+                            <img width="960" height="540" src="<%= c.picture_url %>" />
+                        <% } else { %>
+                          <img width="960" height="540"/>
+                        <% } %>
+
+                        <div>
+                          <h3>Price: $<%= c.price %></h3>
+                        </div>
+                        <div>
+                          <h3>Bathrooms: <%= c.bathrooms %></h3>
+                          <h3>Bedrooms: <%= c.bedrooms %></h3>
+                          <h3>Beds: <%= c.beds %></h3>
+                          <h3>Description:</h3><p><%= c.description %> </p>
+                        </div>
+                        
+                    </div>
+                    <br><br>
+                <% }) %>
+
+            </div>
+    	</div>
+	</div>
+  </body>
+</html>

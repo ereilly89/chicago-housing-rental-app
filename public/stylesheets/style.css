@@ -44,6 +44,10 @@ li a:hover {
     background-color: #21252D;
 }
 
+.message {
+  color: #007BFF;
+}
+
 .error {
   color: #007BFF;
 }

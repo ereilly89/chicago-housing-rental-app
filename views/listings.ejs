@@ -17,6 +17,11 @@
                 <div>
                       <h2><a href="http://localhost:3000/listing/<%= c.id %>"><%= c.name %></a><h2>
                               <img width="960" height="540" src="<%= c.picture_url %>" />
+                              <div>
+                                <h3>Bathrooms: <%= c.bathrooms %></h3>
+                                <h3>Bedrooms: <%= c.bedrooms %></h3>
+                                <h3>Beds: <%= c.beds %></h3>
+                              </div>
                       <p> <%= c.description %> </p>
                               <p><a href="http://localhost:3000/profile/host/<%= c.host_id %>"><%= c.host_id %></a><p>
                 </div>
