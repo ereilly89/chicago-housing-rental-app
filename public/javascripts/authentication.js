@@ -1,16 +1,4 @@
 
-
-function isLoggedIn () {
-  // ...
-  const { token, user } = response.body
-  localStorage.setItem('user', user)
-}
-
-function logout () {
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-}
-
 addEventListeners();
 
 function addEventListeners() {
