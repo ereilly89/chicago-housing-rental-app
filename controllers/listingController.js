@@ -49,18 +49,6 @@ module.exports.listings_get = (req, res) => {
 };
 
 
-// GET "listing/schedule"
-module.exports.listing_schedule_get = (req, res) => {
-  res.render('listing_schedule', { page: "Schedule Listing" });
-}
-
-
-// POST "listing/schedule"
-module.exports.listing_schedule_post = (req, res) => {
-
-}
-
-
 //  GET "listing/:id"
 
 module.exports.listing_id_get = async (req, res, next) => {
@@ -68,7 +56,7 @@ module.exports.listing_id_get = async (req, res, next) => {
 
   MongoClient.connect(url, async function(err, dbs) {
     const dbo = dbs.db("RentalDB");
-
+    console.log("ID---------------------------" + id);
     var listing = await Listing.findOne({ id: id });
     var reviews = await Review.find({ listing_id: id });
 
@@ -80,14 +68,24 @@ module.exports.listing_id_get = async (req, res, next) => {
   
   });
 
- 
-  
-
-
-  
-  
-
 }
+
+// DELETE "listing/:id"
+
+module.exports.listing_id_delete = async (req, res, next) => {
+  console.log("test");
+  var id = req.params.id;
+
+  MongoClient.connect(url, async function(err, dbs) {
+    const dbo = dbs.db("RentalDB");
+
+    Listing.remove({id: id}, async function(err, delete_info) {
+      console.log("Deleting Product " + id);
+      res.send({ delete_info: delete_info });
+    });
+  });
+}
+
 /*
 module.exports.listing_id_get = (req, res) => {
 
@@ -211,7 +209,7 @@ module.exports.listing_create_post = async (req, res) => {
           bathrooms: req.body.bathrooms,
           bedrooms: req.body.bedrooms,
           beds: req.body.beds,
-          price: req.body.price,
+          price: Number(req.body.price),
           number_of_reviews: req.body.number_of_reviews,
           review_scores_rating: req.body.review_scores_rating,
           availabilities: [req.body.date_start, req.body.date_end],

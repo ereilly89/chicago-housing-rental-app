@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const listingSchema = mongoose.Schema({
    _id: String,
     id: {
-        type: Number,
+        type: String,
         required: false,
         trim: true,
     },

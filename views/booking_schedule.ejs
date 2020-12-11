@@ -7,7 +7,6 @@
   <body>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
 
@@ -18,16 +17,20 @@
           <% include partials/navigation %>
           <h3><%= page %></h3><br>
           
-            <form>
+
+            <form id="scheduleBooking-form">
+
+                <input id="listing_id" type="hidden" value="<%= listing.id %>"></input>
+                <input id="tenant_id" type="hidden" value="<%= user.tenant_id %>"></input>
+
                 <label for="datepicker">Start Date:</label>
                 <input type="text" id="datepicker_start"><br><br>
                 <label for="datepicker">End Date:</label>
-                <input type="text" id="datepicker_end"><br><br>
-                <label for="fname">Enter name:</label>
-                <input type="text" id="fname" name="fname"><br><br>
-                <label for="lname">Enter Email:</label>
-                <input type="email" id="email"><br><br>
-                <h3>Price: </h3><br>
+                <input type="text" id="datepicker_end"><br>
+                <p class="error" id="booking-error"></p><br>
+                <h3>Price / Day:</h3>
+
+                <h3>$<%= listing.price %></h3><br>
                 <input type="submit" value="Submit">
             </form>
             <script>
@@ -41,6 +44,7 @@
                 
         </div>
     	</div>
-	</div>
+  </div>
+  <script src="/javascripts/schedule.js"></script>
   </body>
 </html>

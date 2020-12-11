@@ -1,7 +1,7 @@
 //Import models
 const { Tenant } = require('../models/tenant')
 const { Host } = require('../models/host')
-//const {bookingModel} = require('../models/booking')
+const { Booking } = require('../models/booking')
 
 //Database connection
 const MongoClient = require('mongodb').MongoClient;
@@ -13,8 +13,21 @@ module.exports.schedule_get= (req,res,) => {
 }
 */
 
-module.exports.booking_listing_get = (req, res) => {
-  res.render('booking_schedule', { page: "Schedule Booking" });
+
+module.exports.booking_listing_get = async (req, res, next) => {
+  var listing_id = req.params.listing_id;
+  console.log("got it here.. :" + listing_id);
+  MongoClient.connect(url, async function (err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
+    console.log("well you got this value...: " + listing_id);
+    var listing = await dbo.collection("Listing").findOne({ "id": listing_id });
+    var host_id = listing.host_id;
+    var price = listing.price;
+
+    dbs.close();
+    res.render('booking_schedule', { page: "Schedule Booking", listing: listing });
+  })
 }
 
 /*module.exports.bookings_get= (req,res,next) => {
@@ -26,6 +39,42 @@ module.exports.booking_listing_get = (req, res) => {
 }
 */
 
+module.exports.booking_post = async (req, res, next) => {
+
+  MongoClient.connect(url, async function (err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
+    var listing = await dbo.collection("Listing").findOne({ "id": req.params.listing_id });
+    var host_id = listing.host_id;
+    var price = listing.price;
+
+    const { listing_id, tenant_id, schedule_date, date_start, date_end } = req.body;
+    
+    if (!date_start) {
+      return res.status(400).json({
+        message: "Start date is required."
+      })
+    }
+    if (!date_end) {
+      return res.status(400).json({
+        message: "End date is required."
+      })
+    } 
+    
+    const payload = {  listing_id, host_id, tenant_id, schedule_date, date_start, date_end, price };
+    dbo.collection("Booking").insertOne(payload)
+      .then(result => {
+        res.json(result.ops[0])
+
+      })
+      .catch(error => res.send(error));
+    
+  
+  })
+}
+
+
+/*
 module.exports.booking_post= (req,res,next) =>{
     const { bookingDate, name, email } = req.body;
   if (!bookingDate || !name || !email) {
@@ -37,7 +86,7 @@ module.exports.booking_post= (req,res,next) =>{
   req.collection.insertOne(payload)
     .then(result => res.json(result.ops[0]))
     .catch(error => res.send(error));
-}
+}*/
 
 module.exports.booking_delete= (req,res,next) =>{
     const { id } = req.params;

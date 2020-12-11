@@ -18,18 +18,39 @@
                       <h2><a href="http://localhost:3000/listing/<%= c.id %>"><%= c.name %></a><h2>
                               <img width="960" height="540" src="<%= c.picture_url %>" />
                               <div>
-                                <% if (userType == "tenant") { %>
-                                <button><a href="http://localhost:3000/booking/<%= c.id %>">Schedule</a></button>
-                                <% } %>
-                                <h3>Bathrooms: <%= c.bathrooms %></h3>
-                                <h3>Bedrooms: <%= c.bedrooms %></h3>
-                                <h3>Beds: <%= c.beds %></h3>
-                              </div>
+                                
+                                <table>
+                                  <tr>
+                                    <td>
+                                      <h3>Price: $<%= c.price %></h3>
+                                    </td>
+                                    <td>
+                                      <% if (userType == "tenant") { %>
+                                        <button><a href="http://localhost:3000/booking/<%= c.id %>">Schedule</a></button>
+                                      <% } %>
+                                    </td> 
+                                  </tr>
+                                  <tr>
+                                    <td style="padding-right:16px;">
+                                      <h3>Bathrooms: <%= c.bathrooms %></h3>
+                                    </td>
+                                  
+                                    <td style="padding-right:16px;">
+                                      <h3>Bedrooms: <%= c.bedrooms %></h3>   
+                                    </td> 
+                                
+                                    <td style="padding-right:16px;">
+                                      <h3>Beds: <%= c.beds %></h3> 
+                                    </td>      
+                                  </tr>
+                                </table>
+                              </div><br>
                       <p> <%= c.description %> </p>
                               <p><a href="http://localhost:3000/profile/host/<%= c.host_id %>"><%= c.host_id %></a><p>
                 </div>
-                        <br>
+                        <br><br>
                 <% }) %>
+                
                 </div>
 
               <% } else { %>
