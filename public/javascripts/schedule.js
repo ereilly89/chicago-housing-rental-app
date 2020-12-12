@@ -31,9 +31,10 @@ async function createBooking() {
     })
     .then(res => res.json())
     .then(json => {
-        console.log(json);
-        errorMessage.innerText = json.message;
-        location.assign("/profile/tenant/" + json.tenant_id);
+        if (json.tenant_id) {
+            location.assign("/profile/tenant/" + json.tenant_id + "/bookings");
+        }
+        
     })
     .catch(err => console.error(err));
 }

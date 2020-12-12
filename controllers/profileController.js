@@ -80,3 +80,25 @@ module.exports.profile_host_bookings_get = (req, res) => {
     //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
   });
 }
+
+// GET "profile/tenant/:tenant_id/bookings"
+module.exports.profile_tenant_bookings_get = async (req, res) => {
+  
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
+
+	  // Obtain a list of rental listings
+    const bookingResource = dbo.collection("Booking").find({ "tenant_id": req.params.tenant_id });
+
+    // Return all rental listings
+  	bookingResource.toArray( (err, bookingList) => {
+        if (err) throw err;
+    		console.log(bookingList);
+        res.render("profile_tenant_bookings", { page: "My Bookings", bookingArray: bookingList });
+    		dbs.close();
+    });
+    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
+  });
+
+}

@@ -49,27 +49,21 @@ module.exports.booking_post = async (req, res, next) => {
     var price = listing.price;
 
     const { listing_id, tenant_id, schedule_date, date_start, date_end } = req.body;
-    
+    console.log("req body: " + req.body);
     if (!date_start) {
-      return res.status(400).json({
-        message: "Start date is required."
-      })
+      res.status(400).json({ message: "Start date is required." });
     }
-    if (!date_end) {
-      return res.status(400).json({
-        message: "End date is required."
-      })
-    } 
-    
-    const payload = {  listing_id, host_id, tenant_id, schedule_date, date_start, date_end, price };
-    dbo.collection("Booking").insertOne(payload)
-      .then(result => {
-        res.json(result.ops[0])
-
-      })
-      .catch(error => res.send(error));
-    
-  
+    else if (!date_end) {
+      res.status(400).json({ message: "End date is required." });
+    } else {
+        const payload = {  listing_id, host_id, tenant_id, schedule_date, date_start, date_end, price };
+        await dbo.collection("Booking").insertOne(payload)
+        .then(result => {
+          res.json(result.ops[0])
+          res.status(200).json({ message: "Booking successfully scheduled." });
+        })
+        .catch(error => res.send(error));   
+    }
   })
 }
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  
+  <body>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
+
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-12">
+
+            <% include partials/navigation %>
+            <h3><%= page %></h3><br>
+
+            <form id="scheduleBooking-form">
+
+                <input id="listing_id" type="hidden" value="<%= listing.id %>"></input>
+                <input id="tenant_id" type="hidden" value="<%= user.tenant_id %>"></input>
+                <input type="submit" value="Submit">
+
+            </form>
+                
+            </div>
+    	</div>
+  </div>
+  <script src="/javascripts/schedule.js"></script>
+  </body>
+</html>
