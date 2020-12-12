@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  <body>
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-12">
+
+          <% include partials/navigation %>
+          <h3><%= page %></h3><br>
+
+          <% if (tenant) { %>
+            <form id="t-profile-edit-form">
+
+    			      <h3>First Name: </h3><input id="fname" type="text" style="margin-bottom:3px" placeholder="First Name" value =<%= tenant.first %>></input><br>
+                <h3>Last Name: </h3><input id="lname" type="text"  style="margin-bottom:3px" placeholder="Last Name" value =<%= tenant.last %>></input><br>
+                <p class="error" id="t-profile-edit-error"></p>
+
+                <input type="submit" value="Save"></input>
+            </form>
+
+
+          <% } else { %>
+            <h3><%= message %></h3>
+          <% } %>
+
+        </div>
+    	</div>
+	</div>
+  </body>
+</html>

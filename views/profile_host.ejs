@@ -10,7 +10,7 @@
 
           <% include partials/navigation %>
           <h3><%= page %></h3><br>
-          
+
           <% if (host) { %>
             <h3>Host Name: <%= host.host_name %></h3>
             <h3>Rating</h3>
@@ -20,9 +20,15 @@
             <h3>Neighborhood: <%= host.host_neighbourhood %> </h3>
             <h3>Total Listings: <%= host.host_listings_count %></h3><br>
 
-            <h3><a href="/profile/host/<%= host.host_id %>/listings %>">My Listings</a></h3>
-            <h3><a href="/profile/host/<%= host.host_id %>/bookings %>">My Bookings</a></h3>
-
+            <% if (user.host_id != host.host_id) { %>
+              <h3><a href="/profile/host/<%= host.host_id %>/listings %>">View Listings</a></h3>
+            <%}else{%>
+              <h3><a href="/profile/host/<%= host.host_id %>/listings %>">My Listings</a></h3>
+            <%}%>
+            <% if (user.host_id == host.host_id) { %>
+              <h3><a href="/profile/host/<%= host.host_id %>/bookings %>">My Bookings</a></h3>
+              <h3><a href="/profile/host/<%= host.host_id %>/edit_profile %>">Edit Profile</a></h3>
+            <% } %>
           <% } else { %>
             <h3><%= message %></h3>
           <% } %>

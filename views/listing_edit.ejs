@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  <body>
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-12">
+
+          <% include partials/navigation %>
+          <h3><%= page %></h3><br>
+
+          <% if (host) { %>
+            <form id="h-profile-edit-form">
+
+    			      <h3>Name: </h3><input id="name" type="text" placeholder="Name" value =<%= listing.name %> style="margin-bottom:3px"></input><br>
+                <h3>description: </h3><textarea id="description" placeholder="Description" value =<%= listing.description %> name="description" style="margin-bottom:3px"></textarea><br>
+                <h3>Location: </h3><input id="host_location" type="text" value =<%= host.host_location %>  placeholder="Host City" style="margin-bottom:3px"></input><br>
+                <h3>Neighborhood: </h3><input id="host_neighborhood" type="text" value = <%= host.host_neighbourhood %> placeholder="Host Neighborhood" style="margin-bottom:3px"></input><br>
+                <p class="error" id="h-signup-error"></p>
+                <input type="submit" value="Save"></input>
+            </form>
+
+
+          <% } else { %>
+            <h3><%= message %></h3>
+          <% } %>
+
+        </div>
+    	</div>
+	</div>
+  </body>
+</html>

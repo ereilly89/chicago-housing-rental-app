@@ -63,29 +63,26 @@ module.exports.listing_schedule_post = (req, res) => {
 
 //  GET "listing/:id"
 
-module.exports.listing_id_get = async (req, res, next) => {
+module.exports.listing_id_get = (req, res) => {
   var id = Number(req.params.id);
-
-  MongoClient.connect(url, async function(err, dbs) {
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
     const dbo = dbs.db("RentalDB");
 
-    var listing = await Listing.findOne({ id: id });
-    var reviews = await Review.find({ listing_id: id });
+	  // Obtain a list of rental listings
+    const listingResource = dbo.collection("Listing").find({ id: id });
+    //var listingResource = await Listing.findOne({ id: id });
 
-    console.log("PICTURE URL: " + listing.picture_url);
-
-    dbs.close();
-
-    res.render('listing_details', { theListing: listing, reviewsArray: reviews, page: 'Listing' }); 
-  
+    // Return all rental listings
+  	listingResource.toArray( (err, rentalList) => {
+        if (err) throw err;
+    		console.log(rentalList);
+    		res.render('listings', { listingArray: rentalList, page: 'Rental Listings' });
+    		dbs.close();
+    });
+    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
   });
 
- 
-  
-
-
-  
-  
 
 }
 /*
@@ -99,19 +96,19 @@ module.exports.listing_id_get = (req, res) => {
   MongoClient.connect(url, function(err, dbs) {
     if (err) throw err;
     const dbo = dbs.db("RentalDB");
- 
+
     //if (err) throw err;
   //  const dbo = dbs.db("RentalDB");
    // const listingResource = dbo.collection("Listing").find({ id: id });
   //  const reviewResource = dbo.collection("Review").find({ id: id});
 
-    
+
 
 
     dbo.collection("Listing", function(err, listing) {
-      
+
       listing.find({ id: id }).toArray(function(err, result) {
-      
+
         if (err) {
           throw err;
         } else {
@@ -125,7 +122,7 @@ module.exports.listing_id_get = (req, res) => {
         }
 
       });
-      
+
       dbo.collection("Review", function(err, review) {
         review.find({ id: id }).toArray(function(err, result) {
 
@@ -136,21 +133,21 @@ module.exports.listing_id_get = (req, res) => {
               console.log("test2!!!!!!!!!!!!!!!!!!!");
               theReviews.push(result[i]);
             }
-           
+
           }
           dbs.close();
         });
       });
 
-     
+
       console.log("LISTINGS: " + theListing);
        console.log("REVIEWS: " + theReviews);
 
-    res.render('listing_details', { theListing: theListing, reviewsArray: theReviews, page: 'Listing' });  
+    res.render('listing_details', { theListing: theListing, reviewsArray: theReviews, page: 'Listing' });
     });
-    
-  });  
-  
+
+  });
+
 }*/
 
 //  GET "listing/create"
@@ -182,8 +179,8 @@ module.exports.listing_create_post = async (req, res) => {
       res.json({ message: 'Bedrooms is required.' });
 
     } else if (req.body.beds.length == 0) {
-      res.json({ message: 'Beds is required.' });  
-    
+      res.json({ message: 'Beds is required.' });
+
     } else if (req.body.price.length == 0) {
       res.json({ message: 'Price per day is required.' });
 
@@ -224,4 +221,21 @@ module.exports.listing_create_post = async (req, res) => {
       console.log(err);
       res.status(400).json({ err });
   }
+}
+
+module.exports.listing_edit_get = (req, res) => {
+  var id = Number(req.params.id);
+
+  MongoClient.connect(url, async function(err, dbs) {
+    const dbo = dbs.db("RentalDB");
+
+    var listing = await Listing.findOne({ id: id });
+
+    console.log("PICTURE URL: " + listing.picture_url);
+
+    dbs.close();
+
+    res.render('listing_edit', { theListing: listing, page: 'Edit Listing' });
+
+  });
 }
