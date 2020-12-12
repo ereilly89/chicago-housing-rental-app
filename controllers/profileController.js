@@ -2,6 +2,7 @@
 //Import models
 const { Tenant } = require('../models/tenant')
 const { Host } = require('../models/host')
+const { Booking } = require('../models/booking');
 
 //Database connection
 const MongoClient = require('mongodb').MongoClient;
@@ -101,4 +102,15 @@ module.exports.profile_tenant_bookings_get = async (req, res) => {
     //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
   });
 
+}
+
+// GET "profile/tenant/:tenant_id/booking/:booking_id"
+module.exports.profile_tenant_booking_get = async (req, res) => {
+  var booking_id = req.params.booking_id;
+  MongoClient.connect(url, async function(err, dbs) {
+    const dbo = dbs.db("RentalDB");
+    var booking = await Booking.findOne({ "booking_id": req.params.booking_id });
+    dbs.close();
+    res.render('booking_details', { theBooking: booking, page: 'Booking' }); 
+  });
 }

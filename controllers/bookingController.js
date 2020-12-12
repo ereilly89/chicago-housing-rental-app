@@ -3,6 +3,8 @@ const { Tenant } = require('../models/tenant')
 const { Host } = require('../models/host')
 const { Booking } = require('../models/booking')
 
+const { ObjectId } = require('mongodb');
+
 //Database connection
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
@@ -40,6 +42,49 @@ module.exports.booking_listing_get = async (req, res, next) => {
 */
 
 module.exports.booking_post = async (req, res, next) => {
+  
+  try {
+
+
+      MongoClient.connect(url, async function (err, dbs) {
+        if (err) throw err;
+        const dbo = dbs.db("RentalDB");
+        var listing = await dbo.collection("Listing").findOne({ "id": req.params.listing_id });
+        var host_id = listing.host_id;
+        var price = listing.price;
+        var booking_id = new ObjectId();
+
+        const { listing_id, tenant_id, schedule_date, date_start, date_end } = req.body;
+
+        if (!date_start) {
+          res.status(400).json({ message: "Start date is required." });
+
+        }  else if (!date_end) {
+          res.status(400).json({ message: "End date is required. "});
+
+        } else {
+          const booking = await Booking.create({
+            _id: new ObjectId(),
+            booking_id: new ObjectId(),
+            listing_id: req.params.listing_id,
+            host_id: host_id,
+            tenant_id: tenant_id,
+            schedule_date: schedule_date,
+            date_start: date_start,
+            date_end: date_start,
+            price: price
+          });
+          console.log(booking);
+          res.status(200).json({ booking: booking, message: "Booking successfully scheduled." });
+        }
+      })
+    
+  } catch (err) {
+      //const errors = handleErrors(err);
+      console.log(err);
+      res.status(400).json({ err });
+  }
+  /*
 
   MongoClient.connect(url, async function (err, dbs) {
     if (err) throw err;
@@ -47,6 +92,7 @@ module.exports.booking_post = async (req, res, next) => {
     var listing = await dbo.collection("Listing").findOne({ "id": req.params.listing_id });
     var host_id = listing.host_id;
     var price = listing.price;
+    var booking_id = new ObjectId();
 
     const { listing_id, tenant_id, schedule_date, date_start, date_end } = req.body;
     console.log("req body: " + req.body);
@@ -56,7 +102,7 @@ module.exports.booking_post = async (req, res, next) => {
     else if (!date_end) {
       res.status(400).json({ message: "End date is required." });
     } else {
-        const payload = {  listing_id, host_id, tenant_id, schedule_date, date_start, date_end, price };
+        const payload = { booking_id, listing_id, host_id, tenant_id, schedule_date, date_start, date_end, price };
         await dbo.collection("Booking").insertOne(payload)
         .then(result => {
           res.json(result.ops[0])
@@ -64,7 +110,7 @@ module.exports.booking_post = async (req, res, next) => {
         })
         .catch(error => res.send(error));   
     }
-  })
+  }) */
 }
 
 

@@ -21,9 +21,10 @@ async function createBooking() {
         body: JSON.stringify({
             listing_id: form[0].value,
             tenant_id: form[1].value,
+            schedule_date: today.getMonth() + "/" + today.getDay() + "/" + today.getYear(),
             date_start: form[2].value,
-            date_end: form[3].value,
-            schedule_date: today.getMonth() + "/" + today.getDay() + "/" + today.getYear()
+            date_end: form[3].value
+            
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -31,6 +32,7 @@ async function createBooking() {
     })
     .then(res => res.json())
     .then(json => {
+        errorMessage.innerHTML = json.message;
         if (json.tenant_id) {
             location.assign("/profile/tenant/" + json.tenant_id + "/bookings");
         }

@@ -4,7 +4,7 @@ const listingSchema = mongoose.Schema({
    _id: String,
     id: {
         type: String,
-        required: false,
+        required: true,
         trim: true,
     },
     name: {
