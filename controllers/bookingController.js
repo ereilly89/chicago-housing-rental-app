@@ -18,15 +18,12 @@ module.exports.schedule_get= (req,res,) => {
 
 module.exports.booking_listing_get = async (req, res, next) => {
   var listing_id = req.params.listing_id;
-  console.log("got it here.. :" + listing_id);
   MongoClient.connect(url, async function (err, dbs) {
     if (err) throw err;
     const dbo = dbs.db("RentalDB");
-    console.log("well you got this value...: " + listing_id);
     var listing = await dbo.collection("Listing").findOne({ "id": listing_id });
     var host_id = listing.host_id;
     var price = listing.price;
-
     dbs.close();
     res.render('booking_schedule', { page: "Schedule Booking", listing: listing });
   })
@@ -44,15 +41,12 @@ module.exports.booking_listing_get = async (req, res, next) => {
 module.exports.booking_post = async (req, res, next) => {
   
   try {
-
-
       MongoClient.connect(url, async function (err, dbs) {
         if (err) throw err;
         const dbo = dbs.db("RentalDB");
         var listing = await dbo.collection("Listing").findOne({ "id": req.params.listing_id });
         var host_id = listing.host_id;
         var price = listing.price;
-        var booking_id = new ObjectId();
 
         const { listing_id, tenant_id, schedule_date, date_start, date_end } = req.body;
 
@@ -63,19 +57,33 @@ module.exports.booking_post = async (req, res, next) => {
           res.status(400).json({ message: "End date is required. "});
 
         } else {
-          const booking = await Booking.create({
-            _id: new ObjectId(),
-            booking_id: new ObjectId(),
-            listing_id: req.params.listing_id,
-            host_id: host_id,
-            tenant_id: tenant_id,
-            schedule_date: schedule_date,
-            date_start: date_start,
-            date_end: date_start,
-            price: price
+
+          //Validate Available Booking
+          console.log("listing_id: " + req.params.listing_id);
+          var overBooked = await dbo.collection("Booking").find({ 
+            "listing_id": req.params.listing_id
+          }, {
+            $or: [{ "date_start": { $gte: date_start, $lt: date_end }}, { "date_end": { $gt: date_start, $lte: date_end }}]
           });
-          console.log(booking);
-          res.status(200).json({ booking: booking, message: "Booking successfully scheduled." });
+          console.log("Overbooked: " + overBooked);
+
+          if (overBooked.booking_id) {
+            res.status(400).json({ message: "Not available for that timeframe." });
+          } else {
+            const booking = await Booking.create({
+              _id: new ObjectId(),
+              booking_id: new ObjectId(),
+              listing_id: req.params.listing_id,
+              host_id: host_id,
+              tenant_id: tenant_id,
+              schedule_date: schedule_date,
+              date_start: date_start,
+              date_end: date_end,
+              price: price
+            });
+            console.log(booking);
+            res.status(200).json({ booking: booking, message: "Booking successfully scheduled." });
+          }
         }
       })
     

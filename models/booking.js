@@ -8,7 +8,7 @@ const bookingSchema = mongoose.Schema({
         required: true
     },
     listing_id: {
-        type: Number,
+        type: String,
         required: true
     },
     host_id: {
