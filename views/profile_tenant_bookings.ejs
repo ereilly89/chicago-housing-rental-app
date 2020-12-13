@@ -32,14 +32,33 @@
                       <td><a href="http://localhost:3000/profile/tenant/booking/<%= row.booking_id %>">Details</a></td>
                       <td><a href="http://localhost:3000/listing/<%= row.listing_id %>"><%= row.listing_id %></td>
                       <td><a href="http://localhost:3000/profile/host/<%=row.host_id %>"><%= row.host_id %></a></td>
-                      <th>$<%= row.price %></th>
+                      <td>$<%= row.price %></td>
                       <td><%= row.date_start.getMonth()+1 %>/<%= row.date_start.getDate() %>/<%= row.date_start.getFullYear() %></td>
                       <td><%= row.date_end.getMonth()+1 %>/<%= row.date_end.getDate() %>/<%= row.date_end.getFullYear() %></td>
-                      <th><%= row.schedule_date %></th>
-                      <td><%= row.Cancel %></td>
-                      <td>
-                        <a class="btn btn-danger btn-xs" href="/delete/<%= row._id %>"><i class="fa fa-trash"></i></a>
-                      </td>
+                      <td><%= row.schedule_date %></td>
+                      <td><input id="delete_booking_<%= row.booking_id %>" name="<%= row.booking_id %>" type="submit" value="Delete"></input></td>
+
+                      <script>
+                        deleteButtons = document.getElementsByTagName("input");
+                        booking_ids = []
+                        for (var i=0; i<deleteButtons.length; i++) {
+                          var booking_id = deleteButtons[i].name;
+
+                          deleteButtons[i].addEventListener('click', (event) => {
+                              console.log(event);
+                              fetch('http://localhost:3000/booking/'+event.srcElement.name, {
+                                method: 'DELETE',
+                                headers: {
+                                  'Content-Type': 'application/json'
+                                }
+                              }).then(res => res.json())
+                                .then(data => {
+                                  window.location.reload();
+                                });
+                             });
+                        }
+                      </script>
+
                     </tr>
                     <% })}else{ %>
                         <tr>

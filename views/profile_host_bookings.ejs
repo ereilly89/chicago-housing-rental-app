@@ -36,11 +36,28 @@
                       <td><%= row.date_start.getMonth()+1 %>/<%= row.date_start.getDate() %>/<%= row.date_start.getFullYear() %></td>
                       <td><%= row.date_end.getMonth()+1 %>/<%= row.date_end.getDate() %>/<%= row.date_end.getFullYear() %></td>
                       <th><%= row.schedule_date %></th>
-                      <td><%= row.Cancel %></td>
-                      <td>
-                        <a class="btn btn-danger btn-xs" href="/booking/delete/<%= row._id %>"><i class="fa fa-trash"></i></a>
-                      </td>
+                      <td><input id="delete_booking_<%= row.booking_id %>" name="<%= row.booking_id %>" type="submit" value="Delete"></input></td>
                     </tr>
+                    <script>
+                      deleteButtons = document.getElementsByTagName("input");
+                      booking_ids = []
+                      for (var i=0; i<deleteButtons.length; i++) {
+                        var booking_id = deleteButtons[i].name;
+
+                        deleteButtons[i].addEventListener('click', (event) => {
+                            console.log(event);
+                            fetch('http://localhost:3000/booking/'+event.srcElement.name, {
+                              method: 'DELETE',
+                              headers: {
+                                'Content-Type': 'application/json'
+                              }
+                            }).then(res => res.json())
+                              .then(data => {
+                                window.location.reload();
+                              });
+                           });
+                      }
+                    </script>
                     <% })}else{ %>
                         <tr>
                             <td colspan="6">No bookings Found</td>

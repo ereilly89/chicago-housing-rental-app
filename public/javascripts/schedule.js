@@ -53,8 +53,9 @@ function addEventListeners() {
 
         var price = Number(document.getElementById("price").value);
         var totalPrice = document.getElementById("totalPrice");
-        totalPrice.innerHTML = "$" + days*price;
 
+        totalPrice.innerHTML = "$" + days*price;
+        
         
     })
 
@@ -93,8 +94,9 @@ function addEventListeners() {
 
         var price = Number(document.getElementById("price").value);
         var totalPrice = document.getElementById("totalPrice");
+        
         totalPrice.innerHTML = "$" + days*price;
-
+        
 
     })
 
