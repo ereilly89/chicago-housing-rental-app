@@ -60,8 +60,6 @@ module.exports.listing_id_get = async (req, res, next) => {
     var listing = await Listing.findOne({ id: id });
     var reviews = await Review.find({ listing_id: id });
 
-    console.log("PICTURE URL: " + listing.picture_url);
-
     dbs.close();
 
     res.render('listing_details', { theListing: listing, reviewsArray: reviews, page: 'Listing' }); 

@@ -111,6 +111,17 @@ module.exports.profile_tenant_booking_get = async (req, res) => {
     const dbo = dbs.db("RentalDB");
     var booking = await Booking.findOne({ "booking_id": req.params.booking_id });
     dbs.close();
-    res.render('booking_details', { theBooking: booking, page: 'Booking' }); 
+    res.render('booking_details_tenant', { theBooking: booking, page: 'Booking' }); 
+  });
+}
+
+// GET "profile/host/:host_id/booking/:booking_id"
+module.exports.profile_host_booking_get = async (req, res) => {
+  var booking_id = req.params.booking_id;
+  MongoClient.connect(url, async function(err, dbs) {
+    const dbo = dbs.db("RentalDB");
+    var booking = await Booking.findOne({ "booking_id": req.params.booking_id });
+    dbs.close();
+    res.render('booking_details_host', { theBooking: booking, page: 'Booking' }); 
   });
 }

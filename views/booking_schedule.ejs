@@ -2,6 +2,7 @@
 <html>
   <head>
      <% include partials/head %>
+     <script src="jquery-3.5.1.min.js"></script>
   </head>
   
   <body>
@@ -26,16 +27,18 @@
                 <label for="datepicker">Start Date:</label>
                 <input type="text" id="datepicker_start"><br><br>
                 <label for="datepicker">End Date:</label>
-                <input type="text" id="datepicker_end"><br>
+                <input type="text" id="datepicker_end"><br><br>
                 <p class="error" id="booking-error"></p><br>
-                <h3>Price / Day:</h3>
-
-                <h3>$<%= listing.price %></h3><br>
+                <h3>Price</h3>
+                <h3 id="totalPrice"></h3>
+                <input id="price" type="hidden" value="<%= listing.price %>"></input><br>
                 <input type="submit" value="Submit">
             </form>
             <script>
               $( function() {
                 $( "#datepicker_start" ).datepicker();
+
+
               } );
               $( function() {
                 $( "#datepicker_end" ).datepicker();
