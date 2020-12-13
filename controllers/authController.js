@@ -2,7 +2,10 @@ var jwt = require('jsonwebtoken');
 
 //import models
 const { Tenant } = require('../models/tenant')
-const { Host } = require('../models/host')
+const { Host } = require('../models/host');
+const { MongoClient } = require('mongodb');
+
+const url = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
 
 //Create JSON Web Token for authenticating users
 const maxAge = 24 * 60 * 60;
@@ -33,59 +36,101 @@ module.exports.signin_get = (req, res) => {
 
 //  POST "tenant/signup"
 module.exports.tenant_signup_post = async (req, res) => {
-    if (req.body.password1.length < 8) {
-        res.json({message: 'Password must be at least 8 characters.'});
-    } else if (req.body.password1 != req.body.password2) {
-        res.json({message: 'Passwords must match.'})
-    } else {
+    try {
 
-        try {
-            const user = await Tenant.create({
-                tenant_id: req.body.tenant_id,
-                first: req.body.first,
-                last: req.body.last,
-                password: req.body.password1
-            });
-            const token = createToken(user.tenant_id);
-            res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-            res.cookie('userType', 'tenant', { httpOnly: true, maxAge: maxAge*1000});
-            res.status(200).json({ user: user.tenant_id });
-        } catch (err) {
-            //const errors = handleErrors(err);
-            res.status(400).json({ err });
-        }
+        MongoClient.connect(url, async function (err, dbs) {
+            if (err) throw err;
+            const dbo = dbs.db("RentalDB");
+            var tenant = await dbo.collection("Tenant").findOne({ "tenant_id": req.body.tenant_id });
+
+            if (tenant != null) {
+                res.json({ message: 'Username is taken.' });
+            } else if (req.body.first.length == 0) {
+                res.json({ message: 'First name is required.' });
+            } else if (req.body.last.length == 0) {
+                res.json({ message: 'Last name is required.' });
+            } else if (req.body.tenant_id.length < 6) {
+                res.json({ message: 'Username must be at least 6 characters. '});
+            } else if (req.body.password1.length < 8) {
+                res.json({message: 'Password must be at least 8 characters.'});
+            } else if (req.body.password1 != req.body.password2) {
+                res.json({message: 'Passwords must match.'})
+            } else {
+                try {
+                    const user = await Tenant.create({
+                        tenant_id: req.body.tenant_id,
+                        first: req.body.first,
+                        last: req.body.last,
+                        password: req.body.password1
+                    });
+                    const token = createToken(user.tenant_id);
+                    res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
+                    res.cookie('userType', 'tenant', { httpOnly: true, maxAge: maxAge*1000});
+                    res.status(200).json({ user: user.tenant_id });
+                } catch (err) {
+                    //const errors = handleErrors(err);
+                    res.status(400).json({ err, message: 'Username is taken.' });
+                }
+            }
+        })
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ err });
     }
+
+    
 }
 
 
 //  POST "host/signup"
 module.exports.host_signup_post = async (req, res) => {
-    if (req.body.password1.length < 8) {
-        res.json({message: 'Password must be at least 8 characters.'});
-    } else if (req.body.password1 != req.body.password2) {
-        res.json({message: 'Passwords must match.'})
-    } else {
+    try {
 
-        try {
-            const user = await Host.create({
-                host_id: req.body.host_id,
-                host_name: req.body.host_name,
-                host_since: req.body.host_since,
-                host_location: req.body.host_location,
-                host_neighborhood: req.body.host_neighborhood,
-                host_listings_count: req.body.host_listings_count,
-                password: req.body.password1
-            });
-            const token = createToken(user.host_id);
-            res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-            res.cookie('userType', 'host', { httpOnly: true, maxAge: maxAge*1000});
-            res.status(200).json({ user: user.host_id });
-        } catch (err) {
-            //const errors = handleErrors(err);
-            res.status(400).json({ err });
-        }
+        MongoClient.connect(url, async function (err, dbs) {
+            if (err) throw err;
+            const dbo = dbs.db("RentalDB");
+            var host = await dbo.collection("Host").findOne({ "host_id": req.body.host_id });
 
+            if (host != null) {
+                res.json({ message: 'Username is taken.' });
+            } else if (req.body.host_id.length < 6) {
+                res.json({ message: 'Username must be at least 6 characters. ' });
+            } else if (req.body.host_name.length == 0) {
+                res.json({ message: 'Host name is required. '});
+            } else if (req.body.host_neighborhood.length == 0) {
+                res.json({ message: 'Host neighborhood is required. ' });
+            } else if (req.body.password1.length < 8) {
+                res.json({ message: 'Password must be at least 8 characters.' });
+            } else if (req.body.password1 != req.body.password2) {
+                res.json({ message: 'Passwords must match.' })
+            } else {
+                try {
+                    const user = await Host.create({
+                        host_id: req.body.host_id,
+                        host_name: req.body.host_name,
+                        host_since: req.body.host_since,
+                        host_location: req.body.host_location,
+                        host_neighborhood: req.body.host_neighborhood,
+                        host_listings_count: req.body.host_listings_count,
+                        password: req.body.password1
+                    });
+                    const token = createToken(user.host_id);
+                    res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
+                    res.cookie('userType', 'host', { httpOnly: true, maxAge: maxAge*1000});
+                    res.status(200).json({ user: user.host_id });
+                } catch (err) {
+                    //const errors = handleErrors(err);
+                    res.status(400).json({ err, message: 'Username is taken.' });
+                }
+            }
+        })
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ err });
     }
+   
 }
 
 

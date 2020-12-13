@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  <body>
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-12">
+
+            <% include partials/navigation %>
+            <h3><%= page %></h3><br>
+                <form>
+                    <input type="phone" name="phone" placeholder="Phone Number" style="margin-bottom:8px"></input><br><br>
+                    <label>Price</label><br>
+                    <input id="total_price" name="price" value="<%= listing.price %>" style="margin-bottom:8px" readonly></input><br>
+                    <input type="submit" value="Submit"></input>
+                </form>
+            </div>
+
+    	</div>
+	</div>
+  </body>
+</html>
