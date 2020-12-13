@@ -2,6 +2,7 @@
 //Import models
 const { Tenant } = require('../models/tenant')
 const { Host } = require('../models/host')
+const { Booking } = require('../models/booking');
 
 //Database connection
 const MongoClient = require('mongodb').MongoClient;
@@ -78,5 +79,49 @@ module.exports.profile_host_bookings_get = (req, res) => {
     		dbs.close();
     });
     //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
+  });
+}
+
+// GET "profile/tenant/:tenant_id/bookings"
+module.exports.profile_tenant_bookings_get = async (req, res) => {
+  
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
+
+	  // Obtain a list of rental listings
+    const bookingResource = dbo.collection("Booking").find({ "tenant_id": req.params.tenant_id });
+
+    // Return all rental listings
+  	bookingResource.toArray( (err, bookingList) => {
+        if (err) throw err;
+    		console.log(bookingList);
+        res.render("profile_tenant_bookings", { page: "My Bookings", bookingArray: bookingList });
+    		dbs.close();
+    });
+    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
+  });
+
+}
+
+// GET "profile/tenant/:tenant_id/booking/:booking_id"
+module.exports.profile_tenant_booking_get = async (req, res) => {
+  var booking_id = req.params.booking_id;
+  MongoClient.connect(url, async function(err, dbs) {
+    const dbo = dbs.db("RentalDB");
+    var booking = await Booking.findOne({ "booking_id": req.params.booking_id });
+    dbs.close();
+    res.render('booking_details_tenant', { theBooking: booking, page: 'Booking' }); 
+  });
+}
+
+// GET "profile/host/:host_id/booking/:booking_id"
+module.exports.profile_host_booking_get = async (req, res) => {
+  var booking_id = req.params.booking_id;
+  MongoClient.connect(url, async function(err, dbs) {
+    const dbo = dbs.db("RentalDB");
+    var booking = await Booking.findOne({ "booking_id": req.params.booking_id });
+    dbs.close();
+    res.render('booking_details_host', { theBooking: booking, page: 'Booking' }); 
   });
 }

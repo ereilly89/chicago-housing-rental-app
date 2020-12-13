@@ -4,9 +4,10 @@ const { requireAuth, requireTenantAuth, requireHostAuth } = require('../middlewa
 const router = Router();
 
 //router.get('/schedule', requireAuth, scheduleController.schedule_get);
+//router.get('/booking/:listing_id/payment', requireTenantAuth, bookingController.booking_listing_payment_get)
 router.get('/booking/:listing_id', requireTenantAuth, bookingController.booking_listing_get);
-router.post('/booking', requireAuth, bookingController.booking_post);
-router.delete('/booking', requireAuth, bookingController.booking_delete);
+router.post('/booking/:listing_id', requireTenantAuth, bookingController.booking_post);
+router.delete('/booking/delete/:booking_id', requireAuth, bookingController.booking_delete);
 
 
 module.exports = router;

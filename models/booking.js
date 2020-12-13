@@ -3,8 +3,12 @@ const mongoose = require('mongoose');
 const bookingSchema = mongoose.Schema({
     
     _id: String,
+    booking_id: {
+        type: String,
+        required: true
+    },
     listing_id: {
-        type: Number,
+        type: String,
         required: true
     },
     host_id: {

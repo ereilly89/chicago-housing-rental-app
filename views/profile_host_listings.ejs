@@ -4,12 +4,15 @@
      <% include partials/head %>
   </head>
   <body>
+    
     <div class="container-fluid">
     	<div class="row">
     		<div class="col-12">
                 
                 <% include partials/navigation %>
-                <h3><%= page %></h3><br>
+                <h2><%= page %></h2><br>
+
+                <% if (listingArray.length > 0) { %>
 
                 <% listingArray.forEach( c => { %>
                     <div>
@@ -19,22 +22,53 @@
                         <% if (c.picture_url) { %>
                             <img width="960" height="540" src="<%= c.picture_url %>" />
                         <% } else { %>
-                          <img width="960" height="540"/>
+                            <img width="960" height="540"/>
                         <% } %>
-
+                        
                         <div>
+                          <input id="delete_listing_<%= c.id %>" name="<%= c.id %>" type="submit" value="Delete"></input>
                           <h3>Price: $<%= c.price %></h3>
-                        </div>
-                        <div>
+                        
+                        
                           <h3>Bathrooms: <%= c.bathrooms %></h3>
                           <h3>Bedrooms: <%= c.bedrooms %></h3>
                           <h3>Beds: <%= c.beds %></h3>
                           <h3>Description:</h3><p><%= c.description %> </p>
                         </div>
                         
+                        <script>
+
+                          deleteButtons = document.getElementsByTagName("input");
+                          listing_ids = []
+                          for (var i=0; i<deleteButtons.length; i++) {
+                            var listing_id = deleteButtons[i].name;
+
+                            deleteButtons[i].addEventListener('click', (event) => {
+                                console.log(event);
+                                fetch('http://localhost:3000/listing/'+event.srcElement.name, {
+                                  method: 'DELETE',
+                                  headers: {
+                                    'Content-Type': 'application/json'
+                                  }
+                                }).then(res => res.json())
+                                  .then(data => {
+                                    window.location.reload();
+                                  });
+                               });
+                          }
+
+                        </script>
+
+                        
+                        
                     </div>
                     <br><br>
                 <% }) %>
+                <% } else { %>
+
+                  <h3>No listings to display.</h3>
+
+                <% } %>
 
             </div>
     	</div>

@@ -15,6 +15,12 @@ listings = listing[["id","listing_url","name","description", "neighborhood_overv
 listDict = listings.to_dict('records')
 list = []
 for key in listDict:
+    key["id"] = str(key["id"])
+    price = key["price"]
+    key["price"] = float(price[1:].replace(',',''))
+    key["host_id"] = str(key["host_id"])
+
+
     list.append(key)
 mycol.insert_many(list)
 """
@@ -45,6 +51,8 @@ mycol = mydb["Review"]
 listDict = reviews.to_dict('records')
 list = []
 for key in listDict:
+    key["reviewer_id"] = str(key["reviewer_id"])
+    key["listing_id"] = str(key["listing_id"])
     list.append(key)
 mycol.insert_many(list)
 """
