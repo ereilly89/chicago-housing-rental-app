@@ -53,7 +53,7 @@ module.exports.listings_get = (req, res) => {
 //  GET "listing/:id"
 
 module.exports.listing_id_get = async (req, res, next) => {
-  var id = Number(req.params.id);
+  var id = req.params.id;
 
   MongoClient.connect(url, async function(err, dbs) {
     const dbo = dbs.db("RentalDB");

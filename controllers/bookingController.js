@@ -9,12 +9,8 @@ const { ObjectId } = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
 
-/*
-module.exports.schedule_get= (req,res,) => {
-    res.render('schedule_bookings', { page: "Schedule Booking" });
-}
-*/
 
+// GET "booking/:listing_id"
 
 module.exports.booking_listing_get = async (req, res, next) => {
   var listing_id = req.params.listing_id;
@@ -27,16 +23,9 @@ module.exports.booking_listing_get = async (req, res, next) => {
   })
 }
 
-/*module.exports.bookings_get= (req,res,next) => {
-    res.render('bookings', { page: "Booking Lists" });
-    req.collection.find({})
-    .toArray()//move them into an array
-    .then(results => res.json(results))
-    .catch(error => res.send(error));//catch any erros 
-}
-*/
 
 // POST "booking/:listing_id"
+
 module.exports.booking_post = async (req, res, next) => {
   
   try {
@@ -64,18 +53,12 @@ module.exports.booking_post = async (req, res, next) => {
         } else if (date_start == date_end) {
           res.status(400).json({ message: "Must schedule for at least one night." });
         } else {
-          //Validate Available Booking
-          console.log("listing_id: " + req.params.listing_id);
-          console.log("date_start: " + date_start);
-          console.log("date_end" + date_end);
 
+          //Validate Available Booking
           var overBooked = await Booking.find({
             "listing_id": req.params.listing_id,
             $or: [{ "date_start": { $gte: date_start, $lt: date_end }}, { "date_end": { $gt: date_start, $lte: date_end }}, { $and: [{ "date_start": { $lt: date_start } }, { "date_end": { $gt: date_start } } ]}, { $and: [{ "date_start": { $lt: date_end } }, { "date_end": { $gt: date_end } } ]}]
           });
-          console.log(overBooked);
-          console.log(overBooked.length);
-          console.log("Date Start: " + overBooked.date_start + "\nDate End: " + overBooked.date_end);
 
           if (overBooked.length > 0) {
             res.status(400).json({ message: "Not available for that timeframe." });
@@ -108,17 +91,14 @@ module.exports.booking_post = async (req, res, next) => {
 }
 
 
-module.exports.booking_delete= (req,res,next) =>{
+// DELETE "booking/:booking_id"
 
+module.exports.booking_delete= (req,res,next) =>{
    var booking_id = req.params.booking_id;
- 
    MongoClient.connect(url, async function(err, dbs) {
      const dbo = dbs.db("RentalDB");
- 
      Booking.remove({ booking_id: booking_id}, async function(err, delete_info) {
-       console.log("Deleting Product " + booking_id);
        res.send({ delete_info: delete_info });
      });
    });
-
 }

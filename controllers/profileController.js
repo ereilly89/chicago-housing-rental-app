@@ -70,7 +70,7 @@ module.exports.profile_host_bookings_get = (req, res) => {
     const dbo = dbs.db("RentalDB");
 
 	  // Obtain a list of rental listings
-    const listingResource = dbo.collection("Booking").find({ "host_id": req.params.host_id });
+    const listingResource = dbo.collection("Booking").find({ "host_id": req.params.host_id }).sort({ "date_start": 1 });
 
     // Return all rental listings
   	listingResource.toArray( (err, bookingList) => {
@@ -90,7 +90,7 @@ module.exports.profile_tenant_bookings_get = async (req, res) => {
     const dbo = dbs.db("RentalDB");
 
 	  // Obtain a list of rental listings
-    const bookingResource = dbo.collection("Booking").find({ "tenant_id": req.params.tenant_id });
+    const bookingResource = dbo.collection("Booking").find({ "tenant_id": req.params.tenant_id }).sort({ "date_start": 1 });
 
     // Return all rental listings
   	bookingResource.toArray( (err, bookingList) => {
