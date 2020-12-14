@@ -29,6 +29,7 @@ MongoClient.connect(url, function (err, database) {
 
 
 //  GET "listings"
+
 module.exports.listings_get = (req, res) => {
   MongoClient.connect(url, function(err, dbs) {
     if (err) throw err;
@@ -68,6 +69,7 @@ module.exports.listing_id_get = async (req, res, next) => {
 
 }
 
+
 // DELETE "listing/:id"
 
 module.exports.listing_id_delete = async (req, res, next) => {
@@ -84,77 +86,16 @@ module.exports.listing_id_delete = async (req, res, next) => {
   });
 }
 
-/*
-module.exports.listing_id_get = (req, res) => {
-
-  var id = Number(req.params.id);
-
-  var theListing = [];
-  var theReviews = [];
-
-  MongoClient.connect(url, function(err, dbs) {
-    if (err) throw err;
-    const dbo = dbs.db("RentalDB");
- 
-    //if (err) throw err;
-  //  const dbo = dbs.db("RentalDB");
-   // const listingResource = dbo.collection("Listing").find({ id: id });
-  //  const reviewResource = dbo.collection("Review").find({ id: id});
-
-    
-
-
-    dbo.collection("Listing", function(err, listing) {
-      
-      listing.find({ id: id }).toArray(function(err, result) {
-      
-        if (err) {
-          throw err;
-        } else {
-          for (i=0; i<result.length; i++) {
-            console.log("test1!!!!!!!!!!!!!!!!");
-            theListing.push(result[i]);
-
-            console.log(theListing);
-            break;
-          }
-        }
-
-      });
-      
-      dbo.collection("Review", function(err, review) {
-        review.find({ id: id }).toArray(function(err, result) {
-
-          if (err) {
-            throw err;
-          } else {
-            for (i=0; i<result.length; i++) {
-              console.log("test2!!!!!!!!!!!!!!!!!!!");
-              theReviews.push(result[i]);
-            }
-           
-          }
-          dbs.close();
-        });
-      });
-
-     
-      console.log("LISTINGS: " + theListing);
-       console.log("REVIEWS: " + theReviews);
-
-    res.render('listing_details', { theListing: theListing, reviewsArray: theReviews, page: 'Listing' });  
-    });
-    
-  });  
-  
-}*/
 
 //  GET "listing/create"
+
 module.exports.listing_create_get = (req, res) => {
   res.render('listing_create', { page: "Create New Listing" });
 }
 
+
 //  POST "listing/create"
+
 module.exports.listing_create_post = async (req, res) => {
 
   try {

@@ -66,11 +66,15 @@ module.exports.booking_post = async (req, res, next) => {
         } else {
           //Validate Available Booking
           console.log("listing_id: " + req.params.listing_id);
+          console.log("date_start: " + date_start);
+          console.log("date_end" + date_end);
+
           var overBooked = await Booking.find({
             "listing_id": req.params.listing_id,
-            $or: [{ "date_start": { $gte: date_start, $lt: date_end }}, { "date_end": { $gt: date_start, $lte: date_end }}]
+            $or: [{ "date_start": { $gte: date_start, $lt: date_end }}, { "date_end": { $gt: date_start, $lte: date_end }}, { $and: [{ "date_start": { $lt: date_start } }, { "date_end": { $gt: date_start } } ]}, { $and: [{ "date_start": { $lt: date_end } }, { "date_end": { $gt: date_end } } ]}]
           });
           console.log(overBooked);
+          console.log(overBooked.length);
           console.log("Date Start: " + overBooked.date_start + "\nDate End: " + overBooked.date_end);
 
           if (overBooked.length > 0) {
@@ -100,7 +104,6 @@ module.exports.booking_post = async (req, res, next) => {
       console.log(err);
       res.status(400).json({ err });
   }
-  
   
 }
 
