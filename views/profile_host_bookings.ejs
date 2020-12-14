@@ -32,10 +32,10 @@
                       <td><a href="http://localhost:3000/profile/host/booking/<%= row.booking_id %>">Details</a></td>
                       <td><a href="http://localhost:3000/listing/<%= row.listing_id %>"><%= row.listing_id %></a></td>
                       <td><a href="http://localhost:3000/profile/tenant/<%= row.tenant_id %>"><%= row.tenant_id %></a></td>
-                      <th>$<%= row.price %></th>
+                      <td>$<%= row.price %></td>
                       <td><%= row.date_start.getMonth()+1 %>/<%= row.date_start.getDate() %>/<%= row.date_start.getFullYear() %></td>
                       <td><%= row.date_end.getMonth()+1 %>/<%= row.date_end.getDate() %>/<%= row.date_end.getFullYear() %></td>
-                      <th><%= row.schedule_date %></th>
+                      <td><%= row.schedule_date %></td>
                       <td><input id="delete_booking_<%= row.booking_id %>" name="<%= row.booking_id %>" type="submit" value="Delete"></input></td>
                     </tr>
                     <script>
