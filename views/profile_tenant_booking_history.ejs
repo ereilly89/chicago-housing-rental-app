@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  
+  <body>
+    
+    <div class="container-fluid">
+        <div class="row">
+    	    <div class="col-12"> 
+                <% include partials/navigation %>
+               
+    			<h3><%= page %></h3><br>
+             <table class="table table-striped table-primary">
+              <thead>
+                <tr>
+                  <th>Booking</th>
+                  <th>Listing</th>
+                  <th>Host</th>
+                  <th>Price</th>  
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Schedule Date</th>
+                  <th>Cancel</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (bookingArray.length >0) { %>
+                    <% bookingArray.forEach(function(row){ %>
+                    <tr>
+                      <td><a href="http://localhost:3000/profile/tenant/booking/<%= row.booking_id %>">Details</a></td>
+                      <td><a href="http://localhost:3000/listing/<%= row.listing_id %>"><%= row.listing_id %></td>
+                      <td><a href="http://localhost:3000/profile/host/<%=row.host_id %>"><%= row.host_id %></a></td>
+                      <td>$<%= row.price %></td>
+                      <td><%= row.date_start.getMonth()+1 %>/<%= row.date_start.getDate() %>/<%= row.date_start.getFullYear() %></td>
+                      <td><%= row.date_end.getMonth()+1 %>/<%= row.date_end.getDate() %>/<%= row.date_end.getFullYear() %></td>
+                      <td><%= row.schedule_date %></td>
+                      <td><input id="review_listing_<%= row.listing_id %>" name="<%= row.listing_id %>" type="submit" value="Review"></input></td>
+
+                      <script>
+                        deleteButtons = document.getElementsByTagName("input");
+                        booking_ids = []
+                        for (var i=0; i<deleteButtons.length; i++) {
+                          var booking_id = deleteButtons[i].name;
+
+                          deleteButtons[i].addEventListener('click', (event) => {
+                              console.log(event);
+                              fetch('http://localhost:3000/booking/'+event.srcElement.name, {
+                                method: 'DELETE',
+                                headers: {
+                                  'Content-Type': 'application/json'
+                                }
+                              }).then(res => res.json())
+                                .then(data => {
+                                  window.location.reload();
+                                });
+                             });
+                        }
+                      </script>
+
+                    </tr>
+                    <% })}else{ %>
+                        <tr>
+                          <td colspan="6">No bookings Found</td>
+                        </tr>
+                    <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+	</div>
+  </body>
+</html>

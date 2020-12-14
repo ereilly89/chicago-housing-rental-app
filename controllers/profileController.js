@@ -10,6 +10,7 @@ const url = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/Renta
 
 
 // GET "profile/tenant/:tenant_id"
+
 module.exports.profile_tenant_get = (req, res) => {
     var tenant_id = Number(req.params.tenant_id);
    Tenant.findOne({"tenant_id" : req.params.tenant_id})
@@ -27,6 +28,7 @@ module.exports.profile_tenant_get = (req, res) => {
 
 
 // GET "profile/host/:host_id"
+
 module.exports.profile_host_get = (req, res) => {
   Host.findOne({"host_id" : req.params.host_id})
   .then(data => {
@@ -43,6 +45,7 @@ module.exports.profile_host_get = (req, res) => {
 
 
 // GET "profile/host/:host_id/listings"
+
 module.exports.profile_host_listings_get = (req, res) => {
   
   MongoClient.connect(url, function(err, dbs) {
@@ -63,34 +66,18 @@ module.exports.profile_host_listings_get = (req, res) => {
   });
 }
 
-// GET "profile/host/:host_id/bookings"
-module.exports.profile_host_bookings_get = (req, res) => {
-  MongoClient.connect(url, function(err, dbs) {
-    if (err) throw err;
-    const dbo = dbs.db("RentalDB");
-
-	  // Obtain a list of rental listings
-    const listingResource = dbo.collection("Booking").find({ "host_id": req.params.host_id }).sort({ "date_start": 1 });
-
-    // Return all rental listings
-  	listingResource.toArray( (err, bookingList) => {
-        if (err) throw err;
-        res.render("profile_host_bookings", { page: "My Bookings", bookingArray: bookingList });
-    		dbs.close();
-    });
-    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
-  });
-}
 
 // GET "profile/tenant/:tenant_id/bookings"
+
 module.exports.profile_tenant_bookings_get = async (req, res) => {
   
   MongoClient.connect(url, function(err, dbs) {
     if (err) throw err;
     const dbo = dbs.db("RentalDB");
-
+    var today = new Date();
+    
 	  // Obtain a list of rental listings
-    const bookingResource = dbo.collection("Booking").find({ "tenant_id": req.params.tenant_id }).sort({ "date_start": 1 });
+    const bookingResource = dbo.collection("Booking").find({ $and: [{ "tenant_id": req.params.tenant_id }, { "date_end": { $gt: today } }]}).sort({ "date_start": 1 });
 
     // Return all rental listings
   	bookingResource.toArray( (err, bookingList) => {
@@ -104,7 +91,31 @@ module.exports.profile_tenant_bookings_get = async (req, res) => {
 
 }
 
+
+// GET "profile/host/:host_id/bookings"
+
+module.exports.profile_host_bookings_get = (req, res) => {
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
+    var today = new Date();
+
+	  // Obtain a list of rental listings
+    const bookingResource = dbo.collection("Booking").find({ $and: [{ "host_id": req.params.host_id }, { "date_end": { $gt: today } }]}).sort({ "date_start": 1 });
+
+    // Return all rental listings
+  	bookingResource.toArray( (err, bookingList) => {
+        if (err) throw err;
+        res.render("profile_host_bookings", { page: "My Bookings", bookingArray: bookingList });
+    		dbs.close();
+    });
+    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
+  });
+}
+
+
 // GET "profile/tenant/:tenant_id/booking/:booking_id"
+
 module.exports.profile_tenant_booking_get = async (req, res) => {
   var booking_id = req.params.booking_id;
   MongoClient.connect(url, async function(err, dbs) {
@@ -115,7 +126,9 @@ module.exports.profile_tenant_booking_get = async (req, res) => {
   });
 }
 
+
 // GET "profile/host/:host_id/booking/:booking_id"
+
 module.exports.profile_host_booking_get = async (req, res) => {
   var booking_id = req.params.booking_id;
   MongoClient.connect(url, async function(err, dbs) {
@@ -123,5 +136,48 @@ module.exports.profile_host_booking_get = async (req, res) => {
     var booking = await Booking.findOne({ "booking_id": req.params.booking_id });
     dbs.close();
     res.render('booking_details_host', { theBooking: booking, page: 'Booking' }); 
+  });
+}
+
+
+// GET "profile/tenenant/:tenant_id/booking-history"
+
+module.exports.profile_tenant_bookingHistory_get = (req, res) => {
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
+    var today = new Date();
+
+    // Obtain a list of rental listings
+    const bookingResource = dbo.collection("Booking").find({ $and: [{ "tenant_id": req.params.tenant_id }, { "date_end": { $lt: today } }]}).sort({ "date_start": -1 });
+  
+    // Return all rental listings
+    bookingResource.toArray( (err, bookingList) => {
+        if (err) throw err;
+        res.render("profile_tenant_booking_history", { page: "My Booking History", bookingArray: bookingList });
+        dbs.close();
+    });
+    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
+  });
+}
+
+
+// GET "profile/host/:host_id/booking-history"
+
+module.exports.profile_host_bookingHistory_get = (req, res) => {
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
+    var today = new Date();
+
+    const bookingResource = dbo.collection("Booking").find({ $and: [{ "host_id": req.params.host_id }, { "date_end": { $lt: today } }]}).sort({ "date_start": -1 });
+  
+    // Return all rental listings
+    bookingResource.toArray( (err, bookingList) => {
+        if (err) throw err;
+        res.render("profile_host_booking_history", { page: "My Booking History", bookingArray: bookingList });
+        dbs.close();
+    });
+    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
   });
 }

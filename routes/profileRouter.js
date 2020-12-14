@@ -11,4 +11,7 @@ router.get('/profile/tenant/:tenant_id/bookings', requireTenantAuth, profileCont
 router.get('/profile/host/booking/:booking_id', requireHostAuth, profileController.profile_host_booking_get);
 router.get('/profile/tenant/booking/:booking_id', requireTenantAuth, profileController.profile_tenant_booking_get);
 
+router.get('/profile/tenant/:tenant_id/booking-history', requireTenantAuth, profileController.profile_tenant_bookingHistory_get);
+router.get('/profile/host/:host_id/booking-history', requireHostAuth, profileController.profile_host_bookingHistory_get);
+
 module.exports = router;

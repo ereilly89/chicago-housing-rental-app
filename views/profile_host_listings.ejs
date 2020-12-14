@@ -29,10 +29,30 @@
                           <input id="delete_listing_<%= c.id %>" name="<%= c.id %>" type="submit" value="Delete"></input>
                           <h3>Price: $<%= c.price %></h3>
                         
+                        <table>
+                          <tr>
+                            <td style="padding-right:16px;">
+                              <h3>Room Type: <%= c.room_type %></h3>
+                            </td>
+                            <td style="padding-right:16px;">
+                              <h3>Neighborhood: <%= c.neighbourhood_cleansed %></h3>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding-right:16px;">
+                              <h3>Bathrooms: <%= c.bathrooms %></h3>
+                            </td>
+                          
+                            <td style="padding-right:16px;">
+                              <h3>Bedrooms: <%= c.bedrooms %></h3>   
+                            </td> 
                         
-                          <h3>Bathrooms: <%= c.bathrooms %></h3>
-                          <h3>Bedrooms: <%= c.bedrooms %></h3>
-                          <h3>Beds: <%= c.beds %></h3>
+                            <td style="padding-right:16px;">
+                              <h3>Beds: <%= c.beds %></h3> 
+                            </td>      
+                          </tr>
+                        </table>
+                         
                           <h3>Description:</h3><p><%= c.description %> </p>
                         </div>
                         
