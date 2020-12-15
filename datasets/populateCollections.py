@@ -44,7 +44,7 @@ mycol.insert_many(list)
 
 # Generate Reviews Collection
 
-"""
+
 reviews = pd.read_csv("reviews.csv")
 mycol = mydb["Review"]
 
@@ -53,9 +53,10 @@ list = []
 for key in listDict:
     key["reviewer_id"] = str(key["reviewer_id"])
     key["listing_id"] = str(key["listing_id"])
+    key["id"] = str(key["id"])
     list.append(key)
 mycol.insert_many(list)
-"""
+
 
 # Generate Tenants Collection
 

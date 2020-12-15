@@ -11,7 +11,7 @@
     			<h3><%= page %></h3><br>
           <% if (tenant) { %>
             <h3>Tenant Name: <%= tenant.first %> <%= tenant.last %></h3>
-            <h3>Rating</h3>
+            <h3>Rating</h3><br>
 
             <h3><a href="/profile/tenant/<%= tenant.tenant_id %>/bookings %>">My Bookings</a></h3>
             <h3><a href="/profile/tenant/<%= tenant.tenant_id %>/booking-history %>">My Booking History</a></h3>

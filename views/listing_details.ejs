@@ -19,8 +19,10 @@
 
               <% if (theListing.picture_url) { %>
               <img width="960" height="540" src="<%= theListing.picture_url %>" />
+              
               <% } %>
-
+              <br><br>
+              <div>
               <table>
                 <tr>
                   <td>
@@ -53,7 +55,8 @@
                     <h3>Beds: <%= theListing.beds %></h3> 
                   </td>      
                 </tr>
-              </table><br>
+              </table>
+              </div><br>
 
               <% if (theListing.description) { %>
                 <p> <%= theListing.description %> </p>

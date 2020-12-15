@@ -22,7 +22,7 @@
                   <th>Start Date</th>
                   <th>End Date</th>
                   <th>Schedule Date</th>
-                  <th>Cancel</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -36,29 +36,7 @@
                       <td><%= row.date_start.getMonth()+1 %>/<%= row.date_start.getDate() %>/<%= row.date_start.getFullYear() %></td>
                       <td><%= row.date_end.getMonth()+1 %>/<%= row.date_end.getDate() %>/<%= row.date_end.getFullYear() %></td>
                       <td><%= row.schedule_date %></td>
-                      <td><input id="review_listing_<%= row.listing_id %>" name="<%= row.listing_id %>" type="submit" value="Review"></input></td>
-
-                      <script>
-                        deleteButtons = document.getElementsByTagName("input");
-                        booking_ids = []
-                        for (var i=0; i<deleteButtons.length; i++) {
-                          var booking_id = deleteButtons[i].name;
-
-                          deleteButtons[i].addEventListener('click', (event) => {
-                              console.log(event);
-                              fetch('http://localhost:3000/booking/'+event.srcElement.name, {
-                                method: 'DELETE',
-                                headers: {
-                                  'Content-Type': 'application/json'
-                                }
-                              }).then(res => res.json())
-                                .then(data => {
-                                  window.location.reload();
-                                });
-                             });
-                        }
-                      </script>
-
+                      <td><a href="http://localhost:3000/review/tenant/<%= user.tenant_id %>/listing/<%= row.listing_id %>">Leave Review</a></td>
                     </tr>
                     <% })}else{ %>
                         <tr>
