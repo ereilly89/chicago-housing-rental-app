@@ -118,36 +118,41 @@ module.exports.listing_image_get = (req, res) => {
   })
 }
 
+
 //  POST "listing/create"
 
 module.exports.listing_create_post = async (req, res) => {
-  
+
   try {
-    console.log(req.body);
+    
     if (req.body.name.length == 0) {
       res.json({ message: 'Listing name is required.' });
-
     } else if (req.body.description.length == 0) {
       res.json({ message: 'Description is required.' });
-
     } else if (req.body.latitude.length == 0) {
       res.json({ message: 'Latitude is required.' });
-
+    } else if (isNaN(req.body.latitude)) {
+      res.json({ message: 'latitude must be a number.' });
     } else if (req.body.longitude.length == 0) {
       res.json({ message: 'Longitude is required.' });
-
+    } else if (isNaN(req.body.longitude)) {
+      res.json({ message: 'Longitude must be a number.' })
     } else if (req.body.bathrooms.length == 0) {
       res.json({ message: 'Bathrooms is required.' });
-
+    } else if (isNaN(req.body.bathrooms)) {
+      res.json({ message: 'Bathrooms must be a number.' });
     } else if (req.body.bedrooms.length == 0) {
       res.json({ message: 'Bedrooms is required.' });
-
+    } else if (isNaN(req.body.bedrooms)) {
+      res.json({ message: 'Bedrooms must be a number.' });
     } else if (req.body.beds.length == 0) {
       res.json({ message: 'Beds is required.' });  
-    
+    } else if (isNaN(req.body.beds)) {
+      res.json({ message: 'Beds must be a number.' });
     } else if (req.body.price.length == 0) {
       res.json({ message: 'Price per day is required.' });
-
+    } else if (isNaN(req.body.price)) {
+      res.json({ message: 'Price must be a number. '});
     } else {
 
       /*

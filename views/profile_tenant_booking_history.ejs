@@ -9,9 +9,8 @@
     <div class="container-fluid">
         <div class="row">
     	    <div class="col-12"> 
-                <% include partials/navigation %>
-               
-          <h3><%= page %></h3><br>
+            <% include partials/navigation %> 
+            <h2><%= page %></h2><br>
           
             <% if (user.tenant_id == tenant_id) { %>
 
@@ -50,7 +49,7 @@
             </table>
             <% } else { %>
 
-              <h5>You can not view another user's booking history.</h5>
+              <h5>You do not have access to another user's booking history.</h5>
 
             <% } %>
           </div>

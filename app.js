@@ -20,6 +20,7 @@ const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 global.config = require('./config');
 global.bucket = "rentalapp-images";
 
+
 const MONGOURL = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
 var app = express();
 

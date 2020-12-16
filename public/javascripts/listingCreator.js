@@ -14,25 +14,23 @@ async function createListing() {
     var fd = new FormData();
     console.log(photo.files[0])
 
-  
     // make post request
     fetch('http://localhost:3000/listing/create', {
         method: 'POST',
         body: JSON.stringify({
             name: form[0].value,
             description: form[1].value,
-            neighborhood_overview: form[2].value,
-            neighborhood_cleansed: form[4].value,
-            latitude: form[5].value,
-            longitude: form[6].value,
-            room_type: form[7].value,
-            bathrooms: form[8].value,
-            bedrooms: form[9].value,
-            beds: form[10].value,
-            price: form[11].value,
-            host_id: form[14].value,
-            host_name: form[15].value,
-            host_since: form[16].value,
+            neighborhood_cleansed: form[3].value,
+            latitude: form[4].value,
+            longitude: form[5].value,
+            room_type: form[6].value,
+            bathrooms: form[7].value,
+            bedrooms: form[8].value,
+            beds: form[9].value,
+            price: form[10].value,
+            host_id: form[13].value,
+            host_name: form[14].value,
+            host_since: form[15].value,
             number_of_reviews: 0,
             review_scores_rating: 100,
             

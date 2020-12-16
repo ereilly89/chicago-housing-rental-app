@@ -9,8 +9,14 @@
     		<div class="col-12">
 
           <% include partials/navigation %>
-          <h3><%= page %></h3>
+          <h2><%= page %></h2>
             
+          <% if (user.host_id == host_id) { %>
+          
+          <% } else { %>
+            <h5>You do not have access to other user's booking information.</h5>
+          <% } %>
+
     	</div>
 	</div>
   </body>
