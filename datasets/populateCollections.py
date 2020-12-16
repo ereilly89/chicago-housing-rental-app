@@ -8,7 +8,7 @@ listing = pd.read_csv("listings.csv")
 
 # Generate Listings Collection
 
-
+"""
 mycol = mydb["Listing"]
 listings = listing[["id","listing_url","name","description", "neighborhood_overview", "picture_url", "host_id", "host_url", "host_name", "host_since","neighbourhood_cleansed","latitude","longitude","property_type","room_type","bathrooms","bedrooms","beds","amenities","price","minimum_nights","maximum_nights", "number_of_reviews",	"review_scores_rating",	"review_scores_accuracy","review_scores_cleanliness","review_scores_checkin", "review_scores_communication","review_scores_location", "review_scores_value", "reviews_per_month"]]
 
@@ -23,7 +23,7 @@ for key in listDict:
 
     list.append(key)
 mycol.insert_many(list)
-
+"""
 
 # Generate Hosts Collection
 

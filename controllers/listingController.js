@@ -121,7 +121,7 @@ module.exports.listing_image_get = (req, res) => {
 //  POST "listing/create"
 
 module.exports.listing_create_post = async (req, res) => {
-  console.log("listing_create_post...........................");
+  
   try {
     console.log(req.body);
     if (req.body.name.length == 0) {

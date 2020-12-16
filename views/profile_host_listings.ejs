@@ -12,6 +12,11 @@
                 <% include partials/navigation %>
                 <h2><%= page %></h2><br>
 
+                <% if (user.host_id == host_id) { %>
+
+
+                <h5 id="error-msg" class="error"></h5><br>
+
                 <% if (listingArray.length > 0) { %>
 
                 <% listingArray.forEach( c => { %>
@@ -26,7 +31,6 @@
                         
                         <div>
                           <input id="delete_listing_<%= c.id %>" name="<%= c.id %>" type="submit" value="Delete"></input><br><br>
-                          <h5 id="error-msg" class="error"></h5><br>
                           <h3>Price: $<%= c.price %></h3>
                         
                           <table>
@@ -99,6 +103,10 @@
 
                   <h3>No listings to display.</h3>
 
+                <% } %>
+
+                <% } else { %>
+                  <h5>You do not have access to another user's listings.</h5>
                 <% } %>
 
             </div>

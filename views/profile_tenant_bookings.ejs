@@ -11,7 +11,10 @@
     	    <div class="col-12"> 
                 <% include partials/navigation %>
                
-    			<h3><%= page %></h3><br>
+          <h3><%= page %></h3><br>
+          
+          <% if (user.tenant_id == tenant_id) { %>
+
              <table class="table table-striped table-primary">
               <thead>
                 <tr>
@@ -67,6 +70,13 @@
                     <% } %>
               </tbody>
             </table>
+
+            <% } else { %>
+
+              <h5>You do not have access to another user's bookings.</h5>
+
+            <% } %>
+
           </div>
         </div>
 	</div>
