@@ -121,9 +121,10 @@ async function signInHost() {
 
 async function signUpTenant() {
     //get form contents
+    const username = document.getElementById("username");
+    const tenant_phone = document.getElementById("tenant_phone");
     const first = document.getElementById("first");
     const last = document.getElementById("last");
-    const username = document.getElementById("username");
     const password1 = document.getElementById("password1");
     const password2 = document.getElementById("password2");
 
@@ -133,9 +134,10 @@ async function signUpTenant() {
     fetch('http://localhost:3000/tenant/signup', {
         method: 'POST',
         body: JSON.stringify({
+            "tenant_id": username.value,
+            "tenant_phone": tenant_phone.value,
             "first": first.value,
             "last": last.value,
-            "tenant_id": username.value,
             "password1": password1.value,
             "password2": password2.value
         }),
@@ -162,7 +164,8 @@ async function signUpHost() {
     //get form contents
     const username = document.getElementById("username");
     const host_name = document.getElementById("host_name");
-    const host_location = document.getElementById("host_location");
+    const host_phone = document.getElementById("host_phone");
+    const host_about = document.getElementById("host_about");
     const host_neighborhood = document.getElementById("host_neighborhood");
     const password1 = document.getElementById("password1");
     const password2 = document.getElementById("password2");
@@ -177,9 +180,10 @@ async function signUpHost() {
         body: JSON.stringify({
             "host_id": username.value,
             "host_name": host_name.value,
+            "host_phone": host_phone.value,
+            "host_about": host_about.value,
             "host_since": host_since,
-            "host_location": host_location.value,
-            "host_neighborhood": host_neighborhood.value,
+            "host_neighbourhood": host_neighborhood.value,
             "host_listings_count": 0,
             "password1": password1.value,
             "password2": password2.value

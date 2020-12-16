@@ -63,7 +63,6 @@ module.exports.profile_host_listings_get = (req, res) => {
         res.render("profile_host_listings", { page: "My Listings", listingArray: rentalList });
     		dbs.close();
     });
-    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
   });
 }
 
@@ -87,7 +86,6 @@ module.exports.profile_tenant_bookings_get = async (req, res) => {
         res.render("profile_tenant_bookings", { page: "My Bookings", bookingArray: bookingList });
     		dbs.close();
     });
-    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
   });
 
 }
@@ -110,7 +108,6 @@ module.exports.profile_host_bookings_get = (req, res) => {
         res.render("profile_host_bookings", { page: "My Bookings", bookingArray: bookingList });
     		dbs.close();
     });
-    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
   });
 }
 
@@ -124,7 +121,7 @@ module.exports.profile_tenant_booking_get = async (req, res) => {
     const dbo = dbs.db("RentalDB");
     var booking = await Booking.findOne({ booking_id: req.params.booking_id });
     dbs.close();
-    res.render('booking_details_tenant', { theBooking: booking, theListing: listing, page: 'Booking' }); 
+    res.render('booking_details_tenant', { theBooking: booking, page: 'Booking' }); 
   });
 }
 
@@ -137,7 +134,7 @@ module.exports.profile_host_booking_get = async (req, res) => {
     const dbo = dbs.db("RentalDB");
     var booking = await Booking.findOne({ "booking_id": req.params.booking_id });
     dbs.close();
-    res.render('booking_details_host', { theBooking: booking, theListing: listing, page: 'Booking' }); 
+    res.render('booking_details_host', { theBooking: booking, page: 'Booking' }); 
   });
 }
 
@@ -159,7 +156,6 @@ module.exports.profile_tenant_bookingHistory_get = (req, res) => {
         res.render("profile_tenant_booking_history", { page: "My Booking History", bookingArray: bookingList });
         dbs.close();
     });
-    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
   });
 }
 
@@ -180,6 +176,5 @@ module.exports.profile_host_bookingHistory_get = (req, res) => {
         res.render("profile_host_booking_history", { page: "My Booking History", bookingArray: bookingList });
         dbs.close();
     });
-    //res.render('listings', {listingArray: {}, page: 'Rental Listings'});
   });
 }

@@ -29,6 +29,7 @@ module.exports.booking_listing_get = async (req, res, next) => {
 module.exports.booking_post = async (req, res, next) => {
   
   try {
+
       MongoClient.connect(url, async function (err, dbs) {
         if (err) throw err;
         const dbo = dbs.db("RentalDB");
@@ -36,10 +37,8 @@ module.exports.booking_post = async (req, res, next) => {
         var host_id = listing.host_id;
 
         const { listing_id, tenant_id, schedule_date, date_start, date_end, days } = req.body;
-        console.log("days: " + days);
-        console.log("listing.price: " + listing.price);
+        
         var price = Number(listing.price)*days;
-        console.log("PRICE: " + price);
 
         if (!date_start) {
           res.status(400).json({ message: "Start date is required." });

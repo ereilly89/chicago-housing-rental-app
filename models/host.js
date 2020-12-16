@@ -13,16 +13,20 @@ const hostSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    host_phone:{
+        type: Number,
+        required: true,
+    },
     host_since:{
         type: String,
         required: true,
         trim: true
     },
-    host_location:{
+    host_about:{
         type: String,
-        required: true,
+        required: true
     },
-    host_neighborhood:{
+    host_neighbourhood:{
         type: String,
         required: true,
         trim: true

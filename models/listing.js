@@ -25,12 +25,10 @@ const listingSchema = mongoose.Schema({
         type: String,
         required: false,
     },
-    /*
     image: {
         data: Buffer,
         contentType: String
     },
-    */
     host_id: {
         type: String,
         required: true,

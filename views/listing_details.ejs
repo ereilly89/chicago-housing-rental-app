@@ -63,7 +63,7 @@
               <% } %>
 
               <% if (theListing.host_id) { %>
-                <p><a href="http://localhost:3000/profile/host/<%= theListing.host_id %>"><%= theListing.host_id %></a><p>
+                <p><a href="http://localhost:3000/profile/host/<%= theListing.host_id %>">View Host Profile</a><p>
               <% } %>
             </div><br><br>
             
@@ -80,7 +80,7 @@
                 <% reviewsArray.forEach( r => { %>
                   <div>
                     <h3><%= r.reviewer_name %></h3>
-                    <h3><%= r.date %></h3>
+                    <h4><%= r.date.toDateString() %> <%= r.date.toLocaleTimeString()%></h4>
                     <p><%= r.comments %></p>
                   </div>
                 <% }); %>

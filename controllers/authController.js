@@ -43,23 +43,27 @@ module.exports.tenant_signup_post = async (req, res) => {
             if (err) throw err;
             const dbo = dbs.db("RentalDB");
             var tenant = await dbo.collection("Tenant").findOne({ "tenant_id": req.body.tenant_id });
+            var phoneno = /^\d{10}$/;
 
             if (tenant != null) {
                 res.json({ message: 'Username is taken.' });
+            } else if (req.body.tenant_id.length < 6) {
+                res.json({ message: 'Username must be at least 6 characters. '});
+            } else if (!req.body.tenant_phone.match(phoneno)) {
+                res.json({ message: 'Phone number must contain exactly 10 digits.' });
             } else if (req.body.first.length == 0) {
                 res.json({ message: 'First name is required.' });
             } else if (req.body.last.length == 0) {
                 res.json({ message: 'Last name is required.' });
-            } else if (req.body.tenant_id.length < 6) {
-                res.json({ message: 'Username must be at least 6 characters. '});
             } else if (req.body.password1.length < 8) {
-                res.json({message: 'Password must be at least 8 characters.'});
+                res.json({ message: 'Password must be at least 8 characters.'});
             } else if (req.body.password1 != req.body.password2) {
-                res.json({message: 'Passwords must match.'})
+                res.json({ message: 'Passwords must match.'})
             } else {
                 try {
                     const user = await Tenant.create({
                         tenant_id: req.body.tenant_id,
+                        tenant_phone: req.body.tenant_phone,
                         first: req.body.first,
                         last: req.body.last,
                         password: req.body.password1
@@ -78,9 +82,7 @@ module.exports.tenant_signup_post = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(400).json({ err });
-    }
-
-    
+    }   
 }
 
 
@@ -92,14 +94,20 @@ module.exports.host_signup_post = async (req, res) => {
             if (err) throw err;
             const dbo = dbs.db("RentalDB");
             var host = await dbo.collection("Host").findOne({ "host_id": req.body.host_id });
+           
+            var phoneno = /^\d{10}$/;
 
             if (host != null) {
                 res.json({ message: 'Username is taken.' });
             } else if (req.body.host_id.length < 6) {
-                res.json({ message: 'Username must be at least 6 characters. ' });
+                res.json({ message: 'Username must be at least 6 characters.' });
             } else if (req.body.host_name.length == 0) {
-                res.json({ message: 'Host name is required. '});
-            } else if (req.body.host_neighborhood.length == 0) {
+                res.json({ message: 'Host name is required.' });
+            } else if (!req.body.host_phone.match(phoneno)) {
+                res.json({ message: 'Phone number must contain exactly 10 digits.' });
+            } else if (req.body.host_about == 0) {
+                res.json({ message: 'Host about is required.' })
+            } else if (req.body.host_neighbourhood.length == 0) {
                 res.json({ message: 'Host neighborhood is required. ' });
             } else if (req.body.password1.length < 8) {
                 res.json({ message: 'Password must be at least 8 characters.' });
@@ -110,9 +118,10 @@ module.exports.host_signup_post = async (req, res) => {
                     const user = await Host.create({
                         host_id: req.body.host_id,
                         host_name: req.body.host_name,
+                        host_phone: req.body.host_phone,
+                        host_about: req.body.host_about,
                         host_since: req.body.host_since,
-                        host_location: req.body.host_location,
-                        host_neighborhood: req.body.host_neighborhood,
+                        host_neighbourhood: req.body.host_neighbourhood,
                         host_listings_count: req.body.host_listings_count,
                         password: req.body.password1
                     });

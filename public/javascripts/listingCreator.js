@@ -5,8 +5,16 @@ async function createListing() {
 
     var form = document.getElementById("createListing-form").elements;
     var errorMessage = document.getElementById("error-msg");
+    var photo = document.getElementById("file");
+    console.log("PHOTO:"+photo.files[0]);
     console.log(form);
+    console.log(form[3]);
+    console.log(photo);
 
+    var fd = new FormData();
+    console.log(photo.files[0])
+
+  
     // make post request
     fetch('http://localhost:3000/listing/create', {
         method: 'POST',
@@ -14,7 +22,6 @@ async function createListing() {
             name: form[0].value,
             description: form[1].value,
             neighborhood_overview: form[2].value,
-            /*img: form[3].value,*/
             neighborhood_cleansed: form[4].value,
             latitude: form[5].value,
             longitude: form[6].value,
@@ -28,6 +35,7 @@ async function createListing() {
             host_since: form[16].value,
             number_of_reviews: 0,
             review_scores_rating: 100,
+            
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -43,6 +51,7 @@ async function createListing() {
     })
     .catch(err => console.error(err));
 }
+
 
 function getFeatures() {
 

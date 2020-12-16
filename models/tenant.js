@@ -18,6 +18,10 @@ const tenantSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    tenant_phone:{
+        type: Number,
+        required: true,
+    },
     password:{
         type: String,
         required: true,

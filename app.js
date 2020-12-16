@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var logger = require('morgan');
+var fileUpload = require('express-fileupload');
 
 var indexRouter = require('./routes/index');
 var aboutRouter = require('./routes/aboutRouter');
@@ -15,7 +16,10 @@ var reviewRouter = require('./routes/reviewRouter');
 var bookingRouter = require('./routes/bookingRouter');
 
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+
 global.config = require('./config');
+global.bucket = "rentalapp-images";
+
 const MONGOURL = "mongodb+srv://reillyem11:12345@cluster0.nmzpa.gcp.mongodb.net/RentalDB?retryWrites=true&w=majority";
 var app = express();
 
@@ -30,6 +34,12 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
+app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
+// Note that this option available for versions 1.0.0 and newer. 
+app.use(fileUpload({
+  useTempFiles : true,
+  tempFileDir : '/tmp/'
+}));
 app.use('*', checkUser);
 
 
