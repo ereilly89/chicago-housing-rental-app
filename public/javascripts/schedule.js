@@ -1,9 +1,5 @@
 addEventListeners();
 
-function limitDates() {
-  //  dates.inRange(d, start, end)
-}
-
 
 function addEventListeners() {
     const form = document.querySelector('#scheduleBooking-form');
@@ -174,7 +170,7 @@ async function createBooking() {
     totalPrice.innerHTML = "$" + days*price;
 
     // make post request
-    fetch('http://localhost:3000/booking/' + form[0].value, {
+    fetch('https://assignment-294422.uc.r.appspot.com/booking/' + form[0].value, {
         method: 'POST',
         body: JSON.stringify({
             listing_id: form[0].value,
@@ -202,7 +198,7 @@ async function createBooking() {
 
 async function deleteBooking() {
     // make post request
-    fetch('http://localhost:3000/booking/' + form[0].value, {
+    fetch('https://assignment-294422.uc.r.appspot.com/booking/' + form[0].value, {
         method: 'DELETE',
         body: JSON.stringify({
             listing_id: form[0].value,

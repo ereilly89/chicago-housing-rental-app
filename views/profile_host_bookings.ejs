@@ -33,9 +33,9 @@
                 <% if (bookingArray.length >0) { %>
                     <% bookingArray.forEach(function(row){ %>
                     <tr>
-                      <td><a href="http://localhost:3000/profile/host/booking/<%= row.booking_id %>">Details</a></td>
-                      <td><a href="http://localhost:3000/listing/<%= row.listing_id %>"><%= row.listing_id %></a></td>
-                      <td><a href="http://localhost:3000/profile/tenant/<%= row.tenant_id %>"><%= row.tenant_id %></a></td>
+                      <td><a href="/profile/host/booking/<%= row.booking_id %>">Details</a></td>
+                      <td><a href="/listing/<%= row.listing_id %>"><%= row.listing_id %></a></td>
+                      <td><a href="/profile/tenant/<%= row.tenant_id %>"><%= row.tenant_id %></a></td>
                       <td>$<%= row.price %></td>
                       <td><%= row.date_start.getMonth()+1 %>/<%= row.date_start.getDate() %>/<%= row.date_start.getFullYear() %></td>
                       <td><%= row.date_end.getMonth()+1 %>/<%= row.date_end.getDate() %>/<%= row.date_end.getFullYear() %></td>
@@ -50,7 +50,7 @@
 
                         deleteButtons[i].addEventListener('click', (event) => {
                             console.log(event);
-                            fetch('http://localhost:3000/booking/'+event.srcElement.name, {
+                            fetch('https://assignment-294422.uc.r.appspot.com/booking/'+event.srcElement.name, {
                               method: 'DELETE',
                               headers: {
                                 'Content-Type': 'application/json'

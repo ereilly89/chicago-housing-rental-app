@@ -15,7 +15,7 @@
 
                     <% listingArray.forEach( c => { %>
                 <div>
-                      <h2><a href="http://localhost:3000/listing/<%= c.id %>"><%= c.name %></a><h2>
+                      <h2><a href="/listing/<%= c.id %>"><%= c.name %></a><h2>
                               <img width="960" height="540" src="<%= c.picture_url %>" />
                               
                               <div>
@@ -28,7 +28,7 @@
                                     </td>
                                     <td>
                                       <% if (userType == "tenant") { %>
-                                        <button><a href="http://localhost:3000/booking/<%= c.id %>">Schedule</a></button>
+                                        <button><a href="/booking/<%= c.id %>">Schedule</a></button>
                                       <% } %>
                                     </td> 
                                   </tr>
@@ -57,7 +57,7 @@
                               </div>
                               <div>
                                 <h5><%= c.description %></h5>
-                                <p><a href="http://localhost:3000/profile/host/<%= c.host_id %>">View Host Profile</a><p>
+                                <p><a href="/profile/host/<%= c.host_id %>">View Host Profile</a><p>
                               </div>
                           </div>
                         <br><br>

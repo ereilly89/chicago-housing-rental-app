@@ -64,7 +64,7 @@ async function signInTenant() {
     var errorMessage = document.getElementById("signin-error");
 
     // make post request
-    fetch('http://localhost:3000/tenant/signin', {
+    fetch('https://assignment-294422.uc.r.appspot.com/tenant/signin', {
         method: 'POST',
         body: JSON.stringify({
             "tenant_id": username.value,
@@ -95,7 +95,7 @@ async function signInHost() {
     var errorMessage = document.getElementById("signin-error");
 
     // make post request
-    fetch('http://localhost:3000/host/signin', {
+    fetch('https://assignment-294422.uc.r.appspot.com/host/signin', {
         method: 'POST',
         body: JSON.stringify({
             "host_id": username.value,
@@ -131,7 +131,7 @@ async function signUpTenant() {
     var errorMessage = document.getElementById("t-signup-error");
 
     // make post request
-    fetch('http://localhost:3000/tenant/signup', {
+    fetch('https://assignment-294422.uc.r.appspot.com/tenant/signup', {
         method: 'POST',
         body: JSON.stringify({
             "tenant_id": username.value,
@@ -175,7 +175,7 @@ async function signUpHost() {
     var errorMessage = document.getElementById("h-signup-error");
 
     // make post request
-    fetch('http://localhost:3000/host/signup', {
+    fetch('https://assignment-294422.uc.r.appspot.com/host/signup', {
         method: 'POST',
         body: JSON.stringify({
             "host_id": username.value,

@@ -14,7 +14,7 @@
               <% if (theListing) { %>
 
               <% if (theListing.name) { %>
-    					  <h3><a href="http://localhost:3000/listing/<%= theListing.id %>"><%= theListing.name %></a><h2>
+    					  <h3><a href="/listing/<%= theListing.id %>"><%= theListing.name %></a><h2>
               <% } else { %>
                 <h3>NOT FOUND</h3>
               <% } %>
@@ -32,7 +32,7 @@
                   </td>
                   <td>
                     <% if (userType == "tenant") { %>
-                      <button><a href="http://localhost:3000/booking/<%= theListing.id %>">Schedule</a></button>
+                      <button><a href="/booking/<%= theListing.id %>">Schedule</a></button>
                     <% } %>
                   </td> 
                 </tr>
@@ -65,7 +65,7 @@
               <% } %>
 
               <% if (theListing.host_id) { %>
-                <p><a href="http://localhost:3000/profile/host/<%= theListing.host_id %>">View Host Profile</a><p>
+                <p><a href="/profile/host/<%= theListing.host_id %>">View Host Profile</a><p>
               <% } %>
             </div><br><br>
             
