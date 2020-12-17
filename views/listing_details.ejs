@@ -8,9 +8,11 @@
     	<div class="row">
     		<div class="col-12">
           <% include partials/navigation %>
-    			<h3><%= page %></h3><br>
+    			<h2><%= page %></h2><br>
            
   					<div>
+              <% if (theListing) { %>
+
               <% if (theListing.name) { %>
     					  <h3><a href="http://localhost:3000/listing/<%= theListing.id %>"><%= theListing.name %></a><h2>
               <% } else { %>
@@ -19,8 +21,10 @@
 
               <% if (theListing.picture_url) { %>
               <img width="960" height="540" src="<%= theListing.picture_url %>" />
+              
               <% } %>
-
+              <br><br>
+              <div>
               <table>
                 <tr>
                   <td>
@@ -31,6 +35,14 @@
                       <button><a href="http://localhost:3000/booking/<%= theListing.id %>">Schedule</a></button>
                     <% } %>
                   </td> 
+                </tr>
+                <tr>
+                  <td style="padding-right:16px;">
+                    <h3>Room Type: <%= theListing.room_type %></h3>
+                  </td>
+                  <td style="padding-right:16px;">
+                    <h3>Neighborhood: <%= theListing.neighbourhood_cleansed %></h3>
+                  </td>
                 </tr>
                 <tr>
                   <td style="padding-right:16px;">
@@ -45,19 +57,20 @@
                     <h3>Beds: <%= theListing.beds %></h3> 
                   </td>      
                 </tr>
-              </table><br>
+              </table>
+              </div><br>
 
               <% if (theListing.description) { %>
                 <p> <%= theListing.description %> </p>
               <% } %>
 
               <% if (theListing.host_id) { %>
-                <p><a href="http://localhost:3000/profile/host/<%= theListing.host_id %>"><%= theListing.host_id %></a><p>
+                <p><a href="http://localhost:3000/profile/host/<%= theListing.host_id %>">View Host Profile</a><p>
               <% } %>
             </div><br><br>
             
             <div>
-              <h1>Reviews</h1><br>
+              <h2>Reviews</h2><br>
 
               <% if (reviewsArray.length == 0) { %>
                 <div>
@@ -69,7 +82,7 @@
                 <% reviewsArray.forEach( r => { %>
                   <div>
                     <h3><%= r.reviewer_name %></h3>
-                    <h3><%= r.date %></h3>
+                    <h4><%= r.date.toDateString() %> <%= r.date.toLocaleTimeString()%></h4>
                     <p><%= r.comments %></p>
                   </div>
                 <% }); %>
@@ -77,6 +90,9 @@
               <% } %>
 
             </div>
+            <% } else { %>
+            <h5>listing does not exist.</h5>
+            <% } %>
 
         </div>    
     	</div>

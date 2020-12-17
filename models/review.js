@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const reviewSchema = mongoose.Schema({
     id: {
         required: true,
-        type: Number 
+        type: String 
     },
     listing_id: {
         required: true,
@@ -12,7 +12,7 @@ const reviewSchema = mongoose.Schema({
     date: Date,
     reviewer_id: {
         required: true,
-        type: Number //tenant id
+        type: String //tenant id
     },
     reviewer_name: {
         required: true,

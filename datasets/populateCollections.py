@@ -32,12 +32,14 @@ mycol = mydb["Host"]
 
 hosts = listing[["host_id", "host_url", "host_name", "host_since", "host_location", "host_about", "host_neighbourhood", "host_listings_count"]]
 hosts = hosts.drop_duplicates(subset=["host_id"])
-
 listDict = hosts.to_dict('records')
 list = []
+count = 0
 for key in listDict:
     key["host_id"] = str(key["host_id"])
     key["password"] = "$2b$10$0WLUV8Qq5sJgx1BZTZ/hAujp9nL0SJMRzSfqxFOEg9Pqt9cw/R7mC"
+    key["host_phone"] = 6085550000 + count
+    count = count+1
     list.append(key)
 mycol.insert_many(list)
 """
@@ -53,6 +55,7 @@ list = []
 for key in listDict:
     key["reviewer_id"] = str(key["reviewer_id"])
     key["listing_id"] = str(key["listing_id"])
+    key["id"] = str(key["id"])
     list.append(key)
 mycol.insert_many(list)
 """
@@ -62,12 +65,15 @@ mycol.insert_many(list)
 """
 reviews = mydb["Review"]
 list = []
+count = 0
 for x in reviews.find():
     row_dict = {}
     row_dict["tenant_id"] = str(x["reviewer_id"])
     row_dict["first"] = x["reviewer_name"]
     row_dict["last"] = ""
     row_dict["password"] = "$2b$10$0WLUV8Qq5sJgx1BZTZ/hAujp9nL0SJMRzSfqxFOEg9Pqt9cw/R7mC"
+    row_dict["tenant_phone"] = 6087560000 + count
+    count = count + 1
     list.append(row_dict)
 users = mydb["Tenant"]
 users.insert_many(list)

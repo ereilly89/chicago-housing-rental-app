@@ -46,3 +46,20 @@ Tasks
     -Add tenant's personal profile page
         -option for editing account info.  Ex) First, Last name
         -display tenant rating and host reviews of tenant
+
+
+
+
+-Add functionality to image upload for listings
+
+-Booking detail screen, aamamo
+
+-Add details to about page
+
+-Submit reviews functionality - just fix refresh issue
+
+-Schedule booking validation -only schedule for future dates
+
+-Add My Listings, My Bookings, My Booking History to navigation
+
+-Add email and phone number to tenant/host sign up form

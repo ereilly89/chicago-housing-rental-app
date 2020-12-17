@@ -8,7 +8,59 @@
     	<div class="row">
     		<div class="col-12">
             <% include partials/navigation %>
-    		    <h3><%= page %></h3><br>
+            <h2><%= page %></h2><br>
+            
+            <form id="reviewForm">
+              <input id="reviewer_id" type="hidden" value="<%= tenant.tenant_id %>"></input>
+              <input id="reviewer_name" type="hidden" value="<%= tenant.first %>"></input>
+              <input id="listing_id" type="hidden" value="<%= listing.id %>"></input>
+              <textarea id="comments"></textarea><br>
+              <p id="review-error" class="error"></p>
+              <input type="submit" value="Submit"></input>
+            </form>
+            <script>
+              var reviewForm = document.querySelector("#reviewForm");
+              var errorMessage = document.getElementById("review-error");
+              
+              var reviewerId = document.getElementById("reviewer_id");
+              var revierName = document.getElementById("reviewer_name");
+              var listing_id = document.getElementById("listing_id");
+              var comments = document.getElementById("comments");
+
+              reviewForm.addEventListener('submit', (event) => {
+                console.log("button pressed.");
+                console.log(listing_id.value);
+                console.log(reviewForm.elements[0].value);
+                console.log(reviewForm.elements[1].value);
+                console.log(comments.value);
+                  // make post request
+                  fetch('http://localhost:3000/review/tenant/'+ reviewerId.value +'/listing/' + listing_id.value, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                      listing_id: listing_id.value,
+                      reviewer_id: reviewForm.elements[0].value,
+                      reviewer_name: reviewForm.elements[1].value,
+                      comments: comments.value
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+
+                }).then(res => res.json())
+                  .then(json => {
+                      
+                      console.log(json);
+                      if (json.message) {
+                        errorMessage.innerText = json.message;
+                      } else {
+                        location.assign("/listing/"+listing_id.value);
+                      }
+                  })
+                  .catch(err => console.error(err));
+
+              });
+
+            </script>
         </div>
     	</div>
 	</div>

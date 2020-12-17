@@ -12,12 +12,16 @@
                 <% include partials/navigation %>
                 <h2><%= page %></h2><br>
 
+                <% if (user.host_id == host_id) { %>
+
+
+                <h5 id="error-msg" class="error"></h5><br>
+
                 <% if (listingArray.length > 0) { %>
 
                 <% listingArray.forEach( c => { %>
                     <div>
                         <h2>Property <a href="http://localhost:3000/listing/<%= c.id %>"><%= c.name %></a><h2>
-                        <h2>Rating: <%= c.rating %></h2><br>
 
                         <% if (c.picture_url) { %>
                             <img width="960" height="540" src="<%= c.picture_url %>" />
@@ -26,20 +30,43 @@
                         <% } %>
                         
                         <div>
-                          <input id="delete_listing_<%= c.id %>" name="<%= c.id %>" type="submit" value="Delete"></input>
+                          <input id="delete_listing_<%= c.id %>" name="<%= c.id %>" type="submit" value="Delete"></input><br><br>
                           <h3>Price: $<%= c.price %></h3>
                         
+                          <table>
+                            <tr>
+                              <td style="padding-right:16px;">
+                                <h3>Room Type: <%= c.room_type %></h3>
+                              </td>
+                              <td style="padding-right:16px;">
+                                <h3>Neighborhood: <%= c.neighborhood_cleansed %></h3>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-right:16px;">
+                                <h3>Bathrooms: <%= c.bathrooms %></h3>
+                              </td>
+                            
+                              <td style="padding-right:16px;">
+                                <h3>Bedrooms: <%= c.bedrooms %></h3>   
+                              </td> 
+                          
+                              <td style="padding-right:16px;">
+                                <h3>Beds: <%= c.beds %></h3> 
+                              </td>      
+                            </tr>
+                            
+                          </table>
                         
-                          <h3>Bathrooms: <%= c.bathrooms %></h3>
-                          <h3>Bedrooms: <%= c.bedrooms %></h3>
-                          <h3>Beds: <%= c.beds %></h3>
-                          <h3>Description:</h3><p><%= c.description %> </p>
+                          
                         </div>
-                        
+                        <h3>Description:</h3>
+                          <p><%= c.description %></p>
                         <script>
 
-                          deleteButtons = document.getElementsByTagName("input");
-                          listing_ids = []
+                          var deleteButtons = document.getElementsByTagName("input");
+                          var errorMessage = document.getElementById("error-msg");
+                          var listing_ids = []
                           for (var i=0; i<deleteButtons.length; i++) {
                             var listing_id = deleteButtons[i].name;
 
@@ -51,16 +78,21 @@
                                     'Content-Type': 'application/json'
                                   }
                                 }).then(res => res.json())
-                                  .then(data => {
-                                    window.location.reload();
-                                  });
+                                  .then(json => {
+                                    console.log(json);
+                                    if (json.message) {
+                                      errorMessage.innerText = json.message;
+                                      
+                                    } else {
+                                      window.location.reload();
+                                    }
+                                  
+                                  })
+                                  .catch(err => console.error(err));
                                });
                           }
 
                         </script>
-
-                        
-                        
                     </div>
                     <br><br>
                 <% }) %>
@@ -68,6 +100,10 @@
 
                   <h3>No listings to display.</h3>
 
+                <% } %>
+
+                <% } else { %>
+                  <h5>You do not have access to another user's listings.</h5>
                 <% } %>
 
             </div>

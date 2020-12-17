@@ -5,15 +5,15 @@
   </head>
   <body>
 	<div class="container-fluid">
-        <% include partials/navigation %>
-		<h3><%= page %></h3>
-        <br>
+    <% include partials/navigation %>
+		<h2><%= page %></h2><br>
 		<div class="row">
 		  <div class="col-12">
             <form id="t-signup-form">
-    			<input id="first" type="text" placeholder="First Name" style="margin-bottom:3px"></input><br>
-                <input id="last" type="text" placeholder="Last Name" style="margin-bottom:3px"></input><br>
                 <input id="username" type="username" placeholder="Username" style="margin-bottom:3px"></input><br>
+                <input id="tenant_phone" type="phone" placeholder="Phone Number" style="margin-bottom:3px"></input><br>
+    			      <input id="first" type="text" placeholder="First Name" style="margin-bottom:3px"></input><br>
+                <input id="last" type="text" placeholder="Last Name" style="margin-bottom:3px"></input><br>
                 <input id="password1" type="password" placeholder="Password" style="margin-bottom:3px"></input><br>
                 <input id="password2" type="password" placeholder="Password"></input><br>
                 <p class="error" id="t-signup-error"></p>
