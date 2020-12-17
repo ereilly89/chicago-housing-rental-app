@@ -11,6 +11,8 @@
     			<h2><%= page %></h2><br>
            
   					<div>
+              <% if (theListing) { %>
+
               <% if (theListing.name) { %>
     					  <h3><a href="http://localhost:3000/listing/<%= theListing.id %>"><%= theListing.name %></a><h2>
               <% } else { %>
@@ -88,6 +90,9 @@
               <% } %>
 
             </div>
+            <% } else { %>
+            <h5>listing does not exist.</h5>
+            <% } %>
 
         </div>    
     	</div>

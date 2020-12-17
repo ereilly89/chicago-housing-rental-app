@@ -35,24 +35,24 @@ module.exports.booking_post = async (req, res, next) => {
         const dbo = dbs.db("RentalDB");
         var listing = await dbo.collection("Listing").findOne({ "id": req.params.listing_id });
         var host_id = listing.host_id;
+        var today = new Date();
 
         const { listing_id, tenant_id, schedule_date, date_start, date_end, days } = req.body;
         
         var price = Number(listing.price)*days;
 
+        //console.log("DATE_START: " + date_start);
+        //console.log("TODAY: " + today);
+
         if (!date_start) {
           res.status(400).json({ message: "Start date is required." });
-
         }  else if (!date_end) {
           res.status(400).json({ message: "End date is required. "});
-
         } else if (date_start > date_end) {
           res.status(400).json({ message: "Start date must precede end date." });
-
         } else if (date_start == date_end) {
           res.status(400).json({ message: "Must schedule for at least one night." });
         } else {
-
           //Validate Available Booking
           var overBooked = await Booking.find({
             "listing_id": req.params.listing_id,
