@@ -94,7 +94,7 @@ async function getPrice(instance) {
         }),
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ya29.a0AfH6SMC3nrrnhv8gN7E3ZQhVP9iszmK3KOA4wMcq75qRO4vv0jFWHyTUA_H6yq4rX8D9dV_-jo65Bkpy_vf_zOEH_ULeZErtldQLAiPCSRiTVxiXAUfNyHkHQ-bPy0tVGDGTOBi20A4jPtNO3jh-kJ1_ro-EMCjZGfxtsEhrXP1R',
+            'Authorization': 'Bearer ya29.a0AfH6SMBdtqLZgavNfOjq4ueQyNO2epPD3-NCiw3lBsse-bozD86qc91fbfiAtajQ1WDJU2oC5WGUKSk86P0EgMK9Axc5eVu8XYFvD_4PfCO8xVNjD5bexVF3PpyZesdfp6mF-2cfol4QWWhRl24X8ZfAmO51to6_BeoVAm5uIV2C',
             'Accept': 'application/json'
         }
     })
