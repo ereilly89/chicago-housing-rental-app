@@ -20,6 +20,6 @@ router.get('/listings', requireAuth, listingController.listings_get);
 router.get('/listing/create', requireHostAuth, listingController.listing_create_get);
 router.post('/listing/create', upload.single('image'), listingController.listing_create_post);
 router.get('/listing/:id', requireAuth, listingController.listing_id_get);
-router.get('/listing/:id/edit', requireAuth, listingController.listing_edit_get);
-//router.post('/listing/:id/edit', listingController.listing_edit_post);
+router.get('/listing/:id/edit', requireHostAuth, listingController.listing_edit_get);
+router.post('/listing/:id/edit', requireHostAuth, listingController.listing_edit_post);
 module.exports = router;

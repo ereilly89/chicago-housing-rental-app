@@ -11,15 +11,16 @@
           <% include partials/navigation %>
           <h3><%= page %></h3><br>
 
-          <% if (host) { %>
-            <form id="h-profile-edit-form">
+          <% if (host.id == user.id) { %>
+            <form id="edit_profile-form">
 
     			      <h3>Host Name: </h3><input id="host_name" type="text" placeholder="Host Name" style="margin-bottom:3px" value =<%= host.host_name %>></input><br>
-                <h3>About: </h3><textarea id="description" placeholder="About" name="description" style="margin-bottom:3px" value =<%= host.host_about %>></textarea><br>
+                <h3>About: </h3><textarea id="host_about" placeholder="About" name="description" style="margin-bottom:3px" value =<%= host.host_about %>></textarea><br>
                 <h3>Location: </h3><input id="host_location" type="text"  placeholder="Host City" style="margin-bottom:3px"  value =<%= host.host_location %>></input><br>
                 <h3>Neighborhood: </h3><input id="host_neighborhood" type="text" placeholder="Host Neighborhood" style="margin-bottom:3px"  value = <%= host.host_neighbourhood %>></input><br>
                 <p class="error" id="h-profile-edit-error"></p>
-                <input type="submit" value="Save"></input>
+                <input id="submitButton" type="submit" value="Save"></input>
+                <input id="host_id" name="host_id" type="text" hidden=True value="<%= user.host_id %>"></input>
             </form>
 
 
@@ -30,5 +31,17 @@
         </div>
     	</div>
 	</div>
+  <script src="/javascripts/profileEditor.js"></script>
+  <script>
+        const edit_profileForm = document.querySelector('#edit_profile-form');
+
+        edit_profileForm.addEventListener('submit', (event) => {
+
+            // disable default action
+            event.preventDefault();
+
+            edit_host_profile();
+        });
+  </script>
   </body>
 </html>

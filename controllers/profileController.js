@@ -40,6 +40,32 @@ module.exports.profile_tenant_edit_get = (req, res) => {
    });
 }
 
+module.exports.profile_tenant_edit_post = async (req, res) => {
+      try {
+        var myquery = { tenant_id: req.body.tenant_id };
+        console.log(myquery);
+        var newvalues = { $set: {
+          first: req.body.tenant_first,
+          last: req.body.tenant_last,
+        }};
+        console.log(newvalues);
+
+        dbo.collection("Tenant").updateOne(myquery, newvalues, function(err, res) {
+          if(err){
+            throw err;
+          }
+
+          console.log("updated");
+        });
+        console.log("0"); asdf
+          res.status(200).json({ user: user.host_id });
+      } catch (err) {
+          //const errors = handleErrors(err);
+          console.log("test456");
+          res.status(400).json({ err });
+      }
+}
+
 // GET "profile/host/:host_id"
 module.exports.profile_host_get = (req, res) => {
   Host.findOne({"host_id" : req.params.host_id})
@@ -111,19 +137,27 @@ module.exports.profile_host_profile_edit_get = (req, res) => {
   });
 }
 
-module.exports.profile_host_edit_profile_post = async (req, res) => {
-  try {
-    const user = await Host.updateOne({"host_id" : req.params.host_id},
-    {
-        host_name: req.body.host_name,
-        host_location: req.body.host_location,
-        host_neighborhood: req.body.host_neighborhood,
-        host_neighborhood: req.body.host_neighborhood,
-    })
+module.exports.profile_host_profile_edit_post = async (req, res) => {
 
-    res.status(200).json({ user: user.host_id });
-  } catch (err) {
-    //const errors = handleErrors(err);
-    res.status(400).json({ err });
-  }
+      try {
+        var myquery = { host_id: req.body.host_id };
+                console.log(myquery);
+        var newvalues = { $set: {
+          host_name: req.body.host_name,
+          host_about: req.body.host_about,
+          host_location: req.body.host_location,
+          host_neighborhood: req.body.host_neighborhood
+        }};
+        console.log(newvalues);
+
+        dbo.collection("Host").updateOne(myquery, newvalues, function(err, res) {
+          console.log("updated");
+        });
+        console.log("0");
+          res.status(200).json({ user: user.host_id });
+      } catch (err) {
+          //const errors = handleErrors(err);
+          console.log("test456");
+          res.status(400).json({ err });
+      }
 }

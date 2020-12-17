@@ -9,7 +9,7 @@
     		<div class="col-12">
           <% include partials/navigation %>
     			<h3><%= page %></h3><br>
-           
+
   					<div>
               <% if (theListing.name) { %>
     					  <h3><a href="http://localhost:3000/listing/<%= theListing.id %>"><%= theListing.name %></a><h2>
@@ -21,6 +21,32 @@
               <img width="960" height="540" src="<%= theListing.picture_url %>" />
               <% } %>
 
+              <table>
+                <tr>
+                  <td>
+                    <h3>Price: $<%= theListing.price %></h3>
+                  </td>
+                  <td>
+                    <% if (userType == "tenant") { %>
+                      <button><a href="http://localhost:3000/booking/<%= theListing.id %>">Schedule</a></button>
+                    <% } %>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-right:16px;">
+                    <h3>Bathrooms: <%= theListing.bathrooms %></h3>
+                  </td>
+
+                  <td style="padding-right:16px;">
+                    <h3>Bedrooms: <%= theListing.bedrooms %></h3>
+                  </td>
+
+                  <td style="padding-right:16px;">
+                    <h3>Beds: <%= theListing.beds %></h3>
+                  </td>
+                </tr>
+              </table><br>
+
               <% if (theListing.description) { %>
                 <p> <%= theListing.description %> </p>
               <% } %>
@@ -29,7 +55,7 @@
                 <p><a href="http://localhost:3000/profile/host/<%= theListing.host_id %>"><%= theListing.host_id %></a><p>
               <% } %>
             </div><br><br>
-            
+
             <div>
               <h1>Reviews</h1><br>
 
@@ -51,8 +77,10 @@
               <% } %>
 
             </div>
-
-        </div>    
+            <% if (theListing.host_id == user.id) { %>
+              <p><a href="http://localhost:3000/listing/<%= theListing.id %>/edit">Edit Listing</a><p>
+            <% } %>
+        </div>
     	</div>
 	</div>
   </body>
