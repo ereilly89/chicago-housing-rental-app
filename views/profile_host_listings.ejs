@@ -21,7 +21,7 @@
 
                 <% listingArray.forEach( c => { %>
                     <div>
-                        <h2>Property <a href="http://localhost:3000/listing/<%= c.id %>"><%= c.name %></a><h2>
+                        <h2>Property <a href="/listing/<%= c.id %>"><%= c.name %></a><h2>
 
                         <% if (c.picture_url) { %>
                             <img width="960" height="540" src="<%= c.picture_url %>" />
@@ -72,7 +72,7 @@
 
                             deleteButtons[i].addEventListener('click', (event) => {
                                 console.log(event);
-                                fetch('http://localhost:3000/listing/'+event.srcElement.name, {
+                                fetch('https://assignment-294422.uc.r.appspot.com/listing/'+event.srcElement.name, {
                                   method: 'DELETE',
                                   headers: {
                                     'Content-Type': 'application/json'

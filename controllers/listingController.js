@@ -182,7 +182,7 @@ module.exports.listing_create_post = async (req, res) => {
         host_name: req.body.host_name,
         host_since: req.body.host_since,
         image: req.body.image,
-        picture_url: "http://localhost:3000/listing/id/image",
+        picture_url: "",
         neighborhood_cleansed: req.body.neighborhood_cleansed,
         latitude: req.body.latitude,
         longitude: req.body.longitude,
