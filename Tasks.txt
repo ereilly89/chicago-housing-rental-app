@@ -54,8 +54,6 @@ Tasks
 
 -Booking detail screen, aamamo
 
--Add details to about page
-
 -Submit reviews functionality - just fix refresh issue
 
 -Schedule booking validation -only schedule for future dates

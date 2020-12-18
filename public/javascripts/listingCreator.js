@@ -15,7 +15,7 @@ async function createListing() {
     console.log(photo.files[0])
 
     // make post request
-    fetch('https://rentalapp-297023.ue.r.appspot.com/listing/create', {
+    fetch('http://localhost:3000/listing/create', {
         method: 'POST',
         body: JSON.stringify({
             name: form[0].value,
