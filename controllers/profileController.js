@@ -41,6 +41,10 @@ module.exports.profile_tenant_edit_get = (req, res) => {
 }
 
 module.exports.profile_tenant_edit_post = async (req, res) => {
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
+
       try {
         var myquery = { tenant_id: req.body.tenant_id };
         console.log(myquery);
@@ -56,14 +60,18 @@ module.exports.profile_tenant_edit_post = async (req, res) => {
           }
 
           console.log("updated");
+          if(json.user) {
+              location.assign("/listings");
+          }
         });
         console.log("0"); asdf
           res.status(200).json({ user: user.host_id });
       } catch (err) {
           //const errors = handleErrors(err);
-          console.log("test456");
+
           res.status(400).json({ err });
       }
+      });
 }
 
 // GET "profile/host/:host_id"
@@ -138,6 +146,9 @@ module.exports.profile_host_profile_edit_get = (req, res) => {
 }
 
 module.exports.profile_host_profile_edit_post = async (req, res) => {
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
 
       try {
         var myquery = { host_id: req.body.host_id };
@@ -146,18 +157,19 @@ module.exports.profile_host_profile_edit_post = async (req, res) => {
           host_name: req.body.host_name,
           host_about: req.body.host_about,
           host_location: req.body.host_location,
-          host_neighborhood: req.body.host_neighborhood
+          host_neighbourhood: req.body.host_neighborhood
         }};
         console.log(newvalues);
 
-        dbo.collection("Host").updateOne(myquery, newvalues, function(err, res) {
+        dbo.collection("Host").updateOne( myquery, newvalues, function(err, res) {
           console.log("updated");
+
         });
-        console.log("0");
+        console.log(profile);
           res.status(200).json({ user: user.host_id });
       } catch (err) {
           //const errors = handleErrors(err);
-          console.log("test456");
           res.status(400).json({ err });
       }
+      });
 }

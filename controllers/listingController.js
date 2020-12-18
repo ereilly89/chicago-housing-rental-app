@@ -235,7 +235,9 @@ module.exports.listing_edit_get = (req, res) => {
 }
 
 module.exports.listing_edit_post = async (req, res) => {
-
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
   try {
 
     if (req.body.name.length == 0) {
@@ -304,4 +306,5 @@ module.exports.listing_edit_post = async (req, res) => {
       //const errors = handleErrors(err);
       res.status(401).json({ err });
 }
+});
 }
