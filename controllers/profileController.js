@@ -60,9 +60,7 @@ module.exports.profile_tenant_edit_post = async (req, res) => {
           }
 
           console.log("updated");
-          if(json.user) {
-              location.assign("/listings");
-          }
+
         });
         console.log("0"); asdf
           res.status(200).json({ user: user.host_id });
