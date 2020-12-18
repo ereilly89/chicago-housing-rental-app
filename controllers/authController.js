@@ -82,7 +82,7 @@ module.exports.tenant_signup_post = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(400).json({ err });
-    }   
+    }
 }
 
 
@@ -94,7 +94,7 @@ module.exports.host_signup_post = async (req, res) => {
             if (err) throw err;
             const dbo = dbs.db("RentalDB");
             var host = await dbo.collection("Host").findOne({ "host_id": req.body.host_id });
-           
+
             var phoneno = /^\d{10}$/;
 
             if (host != null) {
@@ -140,7 +140,7 @@ module.exports.host_signup_post = async (req, res) => {
         console.log(err);
         res.status(400).json({ err });
     }
-   
+
 }
 
 
@@ -187,7 +187,7 @@ module.exports.host_signin_post = (req, res) => {
             } else {
                 host.comparePassword(req.body.password, (err, isMatch)=>{
                     if(err) throw err;
-                    if(isMatch) return res.status(400).json({
+                    if(!isMatch) return res.status(400).json({
                         message: 'Incorrect password.'
                     });
 
