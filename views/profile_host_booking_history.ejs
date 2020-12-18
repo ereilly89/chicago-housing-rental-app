@@ -46,7 +46,7 @@
 
                         deleteButtons[i].addEventListener('click', (event) => {
                             console.log(event);
-                            fetch('http://localhost:3000/booking/'+event.srcElement.name, {
+                            fetch('https://rentalapp-297023.ue.r.appspot.com/booking/'+event.srcElement.name, {
                               method: 'DELETE',
                               headers: {
                                 'Content-Type': 'application/json'
