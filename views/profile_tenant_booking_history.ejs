@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  
+  <body>
+    
+    <div class="container-fluid">
+        <div class="row">
+    	    <div class="col-12"> 
+            <% include partials/navigation %> 
+            <h2><%= page %></h2><br>
+          
+            <% if (user.tenant_id == tenant_id) { %>
+
+             <table class="table table-striped table-primary">
+              <thead>
+                <tr>
+                  <th>Booking</th>
+                  <th>Listing</th>
+                  <th>Host</th>
+                  <th>Price</th>  
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Schedule Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (bookingArray.length >0) { %>
+                    <% bookingArray.forEach(function(row){ %>
+                    <tr>
+                      <td><a href="/profile/tenant/booking/<%= row.booking_id %>">Details</a></td>
+                      <td><a href="/listing/<%= row.listing_id %>"><%= row.listing_id %></td>
+                      <td><a href="/profile/host/<%=row.host_id %>"><%= row.host_id %></a></td>
+                      <td>$<%= row.price %></td>
+                      <td><%= row.date_start.getMonth()+1 %>/<%= row.date_start.getDate() %>/<%= row.date_start.getFullYear() %></td>
+                      <td><%= row.date_end.getMonth()+1 %>/<%= row.date_end.getDate() %>/<%= row.date_end.getFullYear() %></td>
+                      <td><%= row.schedule_date %></td>
+                      <td><a href="/review/tenant/<%= user.tenant_id %>/listing/<%= row.listing_id %>">Leave Review</a></td>
+                    </tr>
+                    <% })}else{ %>
+                        <tr>
+                          <td colspan="6">No bookings Found</td>
+                        </tr>
+                    <% } %>
+              </tbody>
+            </table>
+            <% } else { %>
+
+              <h5>You do not have access to another user's booking history.</h5>
+
+            <% } %>
+          </div>
+        </div>
+	</div>
+  </body>
+</html>

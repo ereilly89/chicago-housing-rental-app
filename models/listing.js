@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const listingSchema = mongoose.Schema({
    _id: String,
     id: {
-        type: Number,
-        required: false,
+        type: String,
+        required: true,
         trim: true,
     },
     name: {
@@ -25,12 +25,10 @@ const listingSchema = mongoose.Schema({
         type: String,
         required: false,
     },
-    /*
     image: {
         data: Buffer,
         contentType: String
     },
-    */
     host_id: {
         type: String,
         required: true,

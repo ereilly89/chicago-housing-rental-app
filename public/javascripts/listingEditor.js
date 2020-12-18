@@ -11,17 +11,16 @@ async function edit_listing() {
       body: JSON.stringify({
           name: form[0].value,
           description: form[1].value,
-          neighborhood_overview: form[2].value,
           /*img: form[3].value,*/
-          neighborhood_cleansed: form[4].value,
-          latitude: form[5].value,
-          longitude: form[6].value,
-          room_type: form[7].value,
-          bathrooms: form[8].value,
-          bedrooms: form[9].value,
-          beds: form[10].value,
-          price: form[11].value,
-          id: form[13].value,
+          neighborhood_cleansed: form[3].value,
+          latitude: form[4].value,
+          longitude: form[5].value,
+          room_type: form[6].value,
+          bathrooms: form[7].value,
+          bedrooms: form[8].value,
+          beds: form[9].value,
+          price: form[10].value,
+          id: form[12].value,
       }),
       headers: {
           'Content-Type': 'application/json'
@@ -32,8 +31,8 @@ async function edit_listing() {
   .then(json => {
       console.log(json);
       errorMessage.innerText = json.message;
-      if(json.host_id) {
-          location.assign("/profile/host/" + json.host_id + "/listings");
+      if(json.id){
+        location.assign("/listing/"+id.value);
       }
   })
   .catch(err => console.error(err));

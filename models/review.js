@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 
 const reviewSchema = mongoose.Schema({
-    _id: String,
-    listing_id: {
-        required: true,
-        type: Number
-    },
     id: {
         required: true,
-        type: Number //host id
+        type: String 
+    },
+    listing_id: {
+        required: true,
+        type: String
     },
     date: Date,
     reviewer_id: {
         required: true,
-        type: Number //tenant id
+        type: String //tenant id
     },
     reviewer_name: {
         required: true,

@@ -2,7 +2,7 @@ async function edit_host_profile() {
     console.log("Edit Profile");
 
     var form = document.getElementById("edit_profile-form").elements;
-    var errorMessage = document.getElementById("error-msg");
+    var errorMessage = document.getElementById("h-profile-edit-error");
     console.log(form);
 
     // make post request
@@ -11,7 +11,7 @@ async function edit_host_profile() {
         body: JSON.stringify({
             host_name: form[0].value,
             host_about: form[1].value,
-            host_location: form[2].value,
+            host_phone: form[2].value,
             host_neighborhood: form[3].value,
             host_id: form[5].value,
         }),
@@ -23,6 +23,9 @@ async function edit_host_profile() {
     .then(json => {
         console.log(json);
         errorMessage.innerText = json.message;
+        if(json.host_id){
+          location.assign("/profile/host/"+host_id.value);
+        }
     })
     .catch(err => console.error(err));
 }
@@ -31,7 +34,7 @@ async function edit_tenant_profile() {
     console.log("Edit Profile");
 
     var form = document.getElementById("edit_profile-form").elements;
-    var errorMessage = document.getElementById("error-msg");
+    var errorMessage = document.getElementById("t-profile-edit-error");
     console.log(form);
 
     // make post request
@@ -40,7 +43,8 @@ async function edit_tenant_profile() {
         body: JSON.stringify({
             tenant_first: form[0].value,
             tenant_last: form[1].value,
-            tenant_id: form[3].value,
+            tenant_phone: form[2].value,
+            tenant_id: form[4].value,
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -50,6 +54,10 @@ async function edit_tenant_profile() {
     .then(json => {
         console.log(json);
         errorMessage.innerText = json.message;
+        if(json.tenant_id){
+          location.assign("/profile/tenant/"+tenant_id.value);
+        }
     })
     .catch(err => console.error(err));
+
 }

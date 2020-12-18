@@ -14,10 +14,10 @@
           <% if (host.id == user.id) { %>
             <form id="edit_profile-form">
 
-    			      <h3>Host Name: </h3><input id="host_name" type="text" placeholder="Host Name" style="margin-bottom:3px" value =<%= host.host_name %>></input><br>
-                <h3>About: </h3><textarea id="host_about" placeholder="About" name="description" style="margin-bottom:3px" value =<%= host.host_about %>></textarea><br>
-                <h3>Location: </h3><input id="host_location" type="text"  placeholder="Host City" style="margin-bottom:3px"  value =<%= host.host_location %>></input><br>
-                <h3>Neighborhood: </h3><input id="host_neighborhood" type="text" placeholder="Host Neighborhood" style="margin-bottom:3px"  value = <%= host.host_neighbourhood %>></input><br>
+    			      <h3>Host Name: </h3><input id="host_name" type="text" placeholder="Host Name" style="margin-bottom:3px" value ="<%= host.host_name %>"></input><br>
+                <h3>About: </h3><textarea id="host_about" placeholder="About" name="description" style="margin-bottom:3px" ><%= host.host_about %></textarea><br>
+                <h3>Phone: </h3> </h3><input id="host_phone" type="text" placeholder="Phone" style="margin-bottom:3px"  value = "<%= host.host_phone %>">
+                <h3>Neighborhood: </h3><input id="host_neighborhood" type="text" placeholder="Host Neighborhood" style="margin-bottom:3px"  value = "<%= host.host_neighbourhood %>"></input><br>
                 <p class="error" id="h-profile-edit-error"></p>
                 <input id="submitButton" type="submit" value="Save"></input>
                 <input id="host_id" name="host_id" type="text" hidden=True value="<%= user.host_id %>"></input>

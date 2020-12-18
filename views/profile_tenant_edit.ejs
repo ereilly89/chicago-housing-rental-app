@@ -14,8 +14,9 @@
           <% if (tenant.id == user.id) { %>
             <form id="edit_profile-form">
 
-    			      <h3>First Name: </h3><input id="fname" type="text" style="margin-bottom:3px" placeholder="First Name" value =<%= tenant.first %>></input><br>
-                <h3>Last Name: </h3><input id="lname" type="text"  style="margin-bottom:3px" placeholder="Last Name" value =<%= tenant.last %>></input><br>
+    			      <h3>First Name: </h3><input id="fname" type="text" style="margin-bottom:3px" placeholder="First Name" value ="<%= tenant.first %>"></input><br>
+                <h3>Last Name: </h3><input id="lname" type="text"  style="margin-bottom:3px" placeholder="Last Name" value ="<%= tenant.last %>"></input><br>
+                <h3>Phone: </h3><input id="Phone" type="text"  style="margin-bottom:3px" placeholder="Phone" value ="<%= tenant.tenant_phone %>"></input><br>
                 <p class="error" id="t-profile-edit-error"></p>
 
                 <input id="submitButton" type="submit" value="Save"></input>
