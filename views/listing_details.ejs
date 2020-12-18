@@ -67,7 +67,7 @@
                   </td>
                   <td>
                     <% if (userType == "tenant") { %>
-                      <button><a href="http://localhost:3000/booking/<%= theListing.id %>">Schedule</a></button>
+                      <button><a href="https://rentalapp-297023.ue.r.appspot.com/booking/<%= theListing.id %>">Schedule</a></button>
                     <% } %>
                   </td>
                 </tr>
@@ -118,7 +118,7 @@
             </div>
 
               <% if (theListing.host_id == user.id) { %>
-              <p><a href="http://localhost:3000/listing/<%= theListing.id %>/edit">Edit Listing</a><p>
+              <p><a href="https://rentalapp-297023.ue.r.appspot.com/listing/<%= theListing.id %>/edit">Edit Listing</a><p>
                 <% } %>
             <% } else { %>
             <h5>listing does not exist.</h5>

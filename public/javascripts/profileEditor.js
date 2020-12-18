@@ -6,7 +6,7 @@ async function edit_host_profile() {
     console.log(form);
 
     // make post request
-    fetch('http://localhost:3000/profile/host/:host_id/edit_profile', {
+    fetch('https://rentalapp-297023.ue.r.appspot.com/profile/host/:host_id/edit_profile', {
         method: 'POST',
         body: JSON.stringify({
             host_name: form[0].value,
@@ -38,7 +38,7 @@ async function edit_tenant_profile() {
     console.log(form);
 
     // make post request
-    fetch('http://localhost:3000/profile/tenant/:tenant_id/edit_profile', {
+    fetch('https://rentalapp-297023.ue.r.appspot.com/profile/tenant/:tenant_id/edit_profile', {
         method: 'POST',
         body: JSON.stringify({
             tenant_first: form[0].value,

@@ -6,7 +6,7 @@ async function edit_listing() {
     console.log(form);
 
     // make post request
-    fetch('http://localhost:3000/listing/:listing_id/edit', {
+    fetch('https://rentalapp-297023.ue.r.appspot.com/listing/:listing_id/edit', {
       method: 'POST',
       body: JSON.stringify({
           name: form[0].value,
