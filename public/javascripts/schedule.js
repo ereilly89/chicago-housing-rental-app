@@ -170,7 +170,7 @@ async function createBooking() {
     totalPrice.innerHTML = "$" + days*price;
 
     // make post request
-    fetch('https://rentalapp-297023.ue.r.appspot.com/booking/' + form[0].value, {
+    fetch('http://localhost:3000/booking/' + form[0].value, {
         method: 'POST',
         body: JSON.stringify({
             listing_id: form[0].value,
@@ -198,7 +198,7 @@ async function createBooking() {
 
 async function deleteBooking() {
     // make post request
-    fetch('https://rentalapp-297023.ue.r.appspot.com/booking/' + form[0].value, {
+    fetch('http://localhost:3000/booking/' + form[0].value, {
         method: 'DELETE',
         body: JSON.stringify({
             listing_id: form[0].value,
