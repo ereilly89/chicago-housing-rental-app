@@ -14,6 +14,8 @@
         <li class="topnav-right"><a style="color:#FFFFFF">Welcome, <%= user.host_id %></a></li> |
         <li><a href="/listing/create" style="color:#FFFFFF">Create New Listing</a></li>
         <li><a href="/profile/host/<%= user.host_id %>/listings" style="color:#FFFFFF">My Listings</a></li>
+        <li><a href="/profile/host/<%= user.host_id %>/bookings %>">My Bookings</a></li>
+        <li><a href="/profile/host/<%= user.host_id %>/booking-history %>">My Booking History</a></li>
       <% } else { %>
         <li><a href="/profile/tenant/<%= user.tenant_id %>/bookings %>">My Bookings</a></li>
         <li><a href="/profile/tenant/<%= user.tenant_id %>/booking-history %>">My Booking History</a></li>
