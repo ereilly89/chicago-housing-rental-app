@@ -23,7 +23,7 @@ const m = multer({
         cb(null, file.fieldname + '-' + Date.now())
     }
 });*/
- 
+
 //var upload = multer({ storage: storage });
 
 router.get('/listings', requireAuth, listingController.listings_get);
@@ -32,5 +32,7 @@ router.post('/listing/create', m.single("file"), listingController.listing_creat
 router.get("/listing/:id/image", listingController.listing_image_get);
 router.get('/listing/:id', requireAuth, listingController.listing_id_get);
 router.delete('/listing/:id', requireHostAuth, listingController.listing_id_delete);
+router.get('/listing/:id/edit', requireHostAuth, listingController.listing_edit_get);
+router.post('/listing/:id/edit', requireHostAuth, listingController.listing_edit_post);
 
 module.exports = router;

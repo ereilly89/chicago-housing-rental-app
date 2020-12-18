@@ -187,7 +187,7 @@ module.exports.host_signin_post = (req, res) => {
             } else {
                 host.comparePassword(req.body.password, (err, isMatch)=>{
                     if(err) throw err;
-                    if(!isMatch) return res.status(400).json({
+                    if(isMatch) return res.status(400).json({
                         message: 'Incorrect password.'
                     });
 

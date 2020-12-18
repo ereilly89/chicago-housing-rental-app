@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include partials/head %>
+  </head>
+  <body>
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-12">
+
+          <% include partials/navigation %>
+          <h3><%= page %></h3><br>
+
+          <% if (listing.host_id != user.id) { %>
+            <form id="listing_edit-form">
+              <input ID="name" name="name" style="margin-bottom:3px" type="text" value = "<%= listing.name %>"> Name</input><br>
+              <textarea id="description" name="description" style="margin-bottom:3px"><%= listing.description %></textarea> Description<br>
+
+               <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;" value = <%=listing.picture_url %>>
+               <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+               <img id="output" width="200" />
+               <script>
+                 var loadFile = function(event) {
+                   var image = document.getElementById('output');
+                   image.src = URL.createObjectURL(event.target.files[0]);
+                 };
+                 </script>
+
+              <div style="margin-bottom:24px"></div>
+              <select name="neighborhood" id="neighborhood" style="margin-bottom:3px">
+                 <option value="Albany Park">Albany Park</option>
+                 <option value="Archer Heights">Archer Heights</option>
+                 <option value="Armour Square">Armour Square</option>
+                 <option value="Ashburn">Ashburn</option>
+                 <option value="Auburn Gresham">Auburn Gresham</option>
+                 <option value="Austin">Austin</option>
+                 <option value="Avalon Park">Avalon Park</option>
+                 <option value="Avondale">Avondale</option>
+                 <option value="Belmont Cragin">Belmont Cragin</option>
+                 <option value="Beverly">Beverly</option>
+                 <option value="Bridgeport">Bridgeport</option>
+                 <option value="Brighton Park">Brighton Park</option>
+                 <option value="Burnside">Burnside</option>
+                 <option value="Calumet Heights">Calumet Heights</option>
+                 <option value="Chatham">Chatham</option>
+                 <option value="Chicago Lawn">Chicago Lawn</option>
+                 <option value="Clearing">Clearing</option>
+                 <option value="Douglas">Douglas</option>
+                 <option value="Dunning">Dunning</option>
+                 <option value="East Garfield Park">East Garfield Park</option>
+                 <option value="East Side">East Side</option>
+                 <option value="Edgewater">Edgewater</option>
+                 <option value="Edison Park">Edison Park</option>
+                 <option value="Englewood">Englewood</option>
+                 <option value="Forest Glen">Forest Glen</option>
+                 <option value="Fuller Park">Fuller Park</option>
+                 <option value="Gage Park">Gage Park</option>
+                 <option value="Garfield Ridge">Garfield Ridge</option>
+                 <option value="Grand Boulevard">Grand Boulevard</option>
+                 <option value="Greater Grand Crossing">Greater Grand Crossing</option>
+                 <option value="Hegewisch">Hegewisch</option>
+                 <option value="Hermosa">Hermosa</option>
+                 <option value="Humboldt Park">Humboldt Park</option>
+                 <option value="Hyde Park">Hyde Park</option>
+                 <option value="Irving Park">Irving Park</option>
+                 <option value="Jefferson Park">Jefferson Park</option>
+                 <option value="Kenwood">Kenwood</option>
+                 <option value="Lake View">Lake View</option>
+                 <option value="Lincoln Park">Lincoln Park</option>
+                 <option value="Lincoln Square">Lincoln Square</option>
+                 <option value="Logan Square">Logan Square</option>
+                 <option value="Loop">Loop</option>
+                 <option value="Lower West Side">Lower West Side</option>
+                 <option value="Mckinley Park">Mckinley Park</option>
+                 <option value="Montclare">Montclare</option>
+                 <option value="Morgan Park">Morgan Park</option>
+                 <option value="Mount Greenwood">Mount Greenwood</option>
+                 <option value="Near North Side">Near North Side</option>
+                 <option value="Near South Side">Near South Side</option>
+                 <option value="Near West Side">Near West Side</option>
+                 <option value="New City">New City</option>
+                 <option value="North Center">North Center</option>
+                 <option value="North Lawndale">North Lawndale</option>
+                 <option value="North Park">North Park</option>
+                 <option value="Norwood Park">Norwood Park</option>
+                 <option value="Oakland">Oakland</option>
+                 <option value="Ohare">Ohare</option>
+                 <option value="Portage Park">Portage Park</option>
+                 <option value="Pullman">Pullman</option>
+                 <option value="Riverdale">Riverdale</option>
+                 <option value="Rogers Park">Rogers Park</option>
+                 <option value="Roseland">Roseland</option>
+                 <option value="South Chicago">South Chicago</option>
+                 <option value="South Deering">South Deering</option>
+                 <option value="South Lawndale">South Lawndale</option>
+                 <option value="South Shore">South Shore</option>
+                 <option value="Uptown">Uptown</option>
+                 <option value="Washington Heights">Washington Heights</option>
+                 <option value="Washington Park">Washington Park</option>
+                 <option value="West Elsdon">West Elsdon</option>
+                 <option value="West Englewood">West Englewood</option>
+                 <option value="West Garfield Park">West Garfield Park</option>
+                 <option value="West Lawn">West Lawn</option>
+                 <option value="West Pullman">West Pullman</option>
+                 <option value="West Ridge">West Ridge</option>
+                 <option value="West Town">West Town</option>
+                 <option value="Woodlawn">Woodlawn</option>
+               </select> Neighborhood<br>
+               <input id="latitude" name="latitude" type="text" style="margin-bottom:3px" value = <%= listing.latitude %>> Latitude</input><br>
+               <input id="longitude" name="longitude" type="text" style="margin-bottom:3px" value = <%= listing.longitude %>> Longitude</input><br>
+               <select id="room_type" name="roomType" id="room_type" style="margin-bottom:3px">
+                 <option value="Entire home/apt">Entire home/apt</option>
+                 <option value="Hotel room">Hotel room</option>
+                 <option value="Private room">Private room</option>
+                 <option value="Shared room">Shared room</option>
+               </select> Room Type<br>
+               <input id="bathrooms" name="bathrooms" type="text" style="margin-bottom:3px" value = <%= listing.bathrooms %>> Bathrooms</input><br>
+               <input id="bedrooms" name="bedrooms" type="text" style="margin-bottom:3px" value = <%= listing.bedrooms %>> Bedrooms</input><br>
+               <input id="beds" name="beds" type="text" style="margin-bottom:3px" value = <%= listing.beds %>> Beds</input><br>
+               <input id="pricePerDay" type="text" style="margin-bottom:3px" value = <%= listing.price %>> Price / Day</input><br><br>
+               <div id="error-msg" class="error"></div><br>
+               <input id="submitButton" type="submit"></input>
+
+               <input id="id" name="id" type="text" hidden=True value="<%=listing.id %>"></input>
+              </form>
+
+
+          <% } else { %>
+            <h3><%= message %></h3>
+          <% } %>
+
+        </div>
+    	</div>
+	</div>
+  <script src="/javascripts/listingEditor.js"></script>
+  <script>
+        const edit_listingForm = document.querySelector('#listing_edit-form');
+
+        edit_listingForm.addEventListener('submit', (event) => {
+
+            // disable default action
+            event.preventDefault();
+
+            edit_listing();
+        });
+  </script>
+  </body>
+</html>

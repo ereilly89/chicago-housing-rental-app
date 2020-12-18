@@ -65,7 +65,7 @@ module.exports.listing_id_get = async (req, res, next) => {
     var listing = await Listing.findOne({ id: id });
     var reviews = await Review.find({ listing_id: id }).sort({ "date": -1 });
     dbs.close();
-    res.render('listing_details', { theListing: listing, reviewsArray: reviews, page: 'Listing' }); 
+    res.render('listing_details', { theListing: listing, reviewsArray: reviews, page: 'Listing' });
   });
 
 }
@@ -88,7 +88,7 @@ module.exports.listing_id_delete = async (req, res, next) => {
     var today = new Date();
 
     var conflictBooking = await Booking.findOne({ "listing_id": id, "date_end": { $gt: today }});
-   
+
     if (conflictBooking == undefined) {
       Listing.remove({id: id}, async function(err, delete_info) {
         console.log("Deleting Product " + id);
@@ -124,7 +124,7 @@ module.exports.listing_image_get = (req, res) => {
 module.exports.listing_create_post = async (req, res) => {
 
   try {
-    
+
     if (req.body.name.length == 0) {
       res.json({ message: 'Listing name is required.' });
     } else if (req.body.description.length == 0) {
@@ -146,7 +146,7 @@ module.exports.listing_create_post = async (req, res) => {
     } else if (isNaN(req.body.bedrooms)) {
       res.json({ message: 'Bedrooms must be a number.' });
     } else if (req.body.beds.length == 0) {
-      res.json({ message: 'Beds is required.' });  
+      res.json({ message: 'Beds is required.' });
     } else if (isNaN(req.body.beds)) {
       res.json({ message: 'Beds must be a number.' });
     } else if (req.body.price.length == 0) {
@@ -225,4 +225,99 @@ module.exports.listing_create_post = async (req, res) => {
       console.log(err);
       res.status(400).json({ err, message: "There was an error creating the listing." });
   }
+}
+
+module.exports.listing_edit_get = async (req, res) => {
+  var id = req.params.id;
+
+  MongoClient.connect(url, async function(err, dbs) {
+    const dbo = dbs.db("RentalDB");
+
+    var listing = await dbo.collection("Listing").findOne({id:id});
+    console.log(listing);
+    console.log("PICTURE URL: " + listing.picture_url);
+
+    dbs.close();
+
+    res.render('listing_edit', { listing: listing, page: 'Edit Listing' });
+
+  });
+}
+
+module.exports.listing_edit_post = async (req, res) => {
+  MongoClient.connect(url, function(err, dbs) {
+    if (err) throw err;
+    const dbo = dbs.db("RentalDB");
+  try {
+
+    if (req.body.name.length == 0) {
+      res.json({ message: 'Listing name is required.' });
+    } else if (req.body.description.length == 0) {
+      res.json({ message: 'Description is required.' });
+    } else if (req.body.latitude.length == 0) {
+      res.json({ message: 'Latitude is required.' });
+    } else if (isNaN(req.body.latitude)) {
+      res.json({ message: 'latitude must be a number.' });
+    } else if (req.body.longitude.length == 0) {
+      res.json({ message: 'Longitude is required.' });
+    } else if (isNaN(req.body.longitude)) {
+      res.json({ message: 'Longitude must be a number.' })
+    } else if (req.body.bathrooms.length == 0) {
+      res.json({ message: 'Bathrooms is required.' });
+    } else if (isNaN(req.body.bathrooms)) {
+      res.json({ message: 'Bathrooms must be a number.' });
+    } else if (req.body.bedrooms.length == 0) {
+      res.json({ message: 'Bedrooms is required.' });
+    } else if (isNaN(req.body.bedrooms)) {
+      res.json({ message: 'Bedrooms must be a number.' });
+    } else if (req.body.beds.length == 0) {
+      res.json({ message: 'Beds is required.' });
+    } else if (isNaN(req.body.beds)) {
+      res.json({ message: 'Beds must be a number.' });
+    } else if (req.body.price.length == 0) {
+      res.json({ message: 'Price per day is required.' });
+    } else if (isNaN(req.body.price)) {
+      res.json({ message: 'Price must be a number. '});
+    } else {
+
+      try {
+        var myquery = { id: req.body.id };
+        console.log(myquery);
+        var newvalues = { $set: {
+          name: req.body.name,
+          description: req.body.description,
+         /*
+          img: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+          },
+          */
+          neighborhood_cleansed: req.body.neighborhood_cleansed,
+          latitude: req.body.latitude,
+          longitude: req.body.longitude,
+          room_type: req.body.room_type,
+          bathrooms: req.body.bathrooms,
+          bedrooms: req.body.bedrooms,
+          beds: req.body.beds,
+          price: req.body.price
+        }};
+        console.log(newvalues);
+
+        dbo.collection("Listing").updateOne(myquery, newvalues, function(err, res) {
+          if(err){
+            throw err;
+          }
+          console.log("updated");
+        });
+          res.status(200).json({message: "Save Successfull.", id: req.body.id});
+      } catch (err) {
+          //const errors = handleErrors(err);
+          res.status(400).json({ err, message: "Error Editing Listing." });
+      }
+    }
+  } catch (err) {
+      //const errors = handleErrors(err);
+      res.status(401).json({ err, message: "Error Editing Listing." });
+}
+});
 }

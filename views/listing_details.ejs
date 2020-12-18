@@ -9,7 +9,7 @@
     		<div class="col-12">
           <% include partials/navigation %>
     			<h2><%= page %></h2><br>
-           
+
   					<div>
               <% if (theListing) { %>
 
@@ -21,7 +21,7 @@
 
               <% if (theListing.picture_url) { %>
               <img width="960" height="540" src="<%= theListing.picture_url %>" />
-              
+
               <% } %>
               <br><br>
               <div>
@@ -34,7 +34,7 @@
                     <% if (userType == "tenant") { %>
                       <button><a href="/booking/<%= theListing.id %>">Schedule</a></button>
                     <% } %>
-                  </td> 
+                  </td>
                 </tr>
                 <tr>
                   <td style="padding-right:16px;">
@@ -48,17 +48,43 @@
                   <td style="padding-right:16px;">
                     <h3>Bathrooms: <%= theListing.bathrooms %></h3>
                   </td>
-                
+
                   <td style="padding-right:16px;">
-                    <h3>Bedrooms: <%= theListing.bedrooms %></h3>   
-                  </td> 
-              
+                    <h3>Bedrooms: <%= theListing.bedrooms %></h3>
+                  </td>
+
                   <td style="padding-right:16px;">
-                    <h3>Beds: <%= theListing.beds %></h3> 
-                  </td>      
+                    <h3>Beds: <%= theListing.beds %></h3>
+                  </td>
                 </tr>
               </table>
               </div><br>
+
+              <table>
+                <tr>
+                  <td>
+                    <h3>Price: $<%= theListing.price %></h3>
+                  </td>
+                  <td>
+                    <% if (userType == "tenant") { %>
+                      <button><a href="http://localhost:3000/booking/<%= theListing.id %>">Schedule</a></button>
+                    <% } %>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-right:16px;">
+                    <h3>Bathrooms: <%= theListing.bathrooms %></h3>
+                  </td>
+
+                  <td style="padding-right:16px;">
+                    <h3>Bedrooms: <%= theListing.bedrooms %></h3>
+                  </td>
+
+                  <td style="padding-right:16px;">
+                    <h3>Beds: <%= theListing.beds %></h3>
+                  </td>
+                </tr>
+              </table><br>
 
               <% if (theListing.description) { %>
                 <p> <%= theListing.description %> </p>
@@ -68,7 +94,7 @@
                 <p><a href="/profile/host/<%= theListing.host_id %>">View Host Profile</a><p>
               <% } %>
             </div><br><br>
-            
+
             <div>
               <h2>Reviews</h2><br>
 
@@ -90,11 +116,16 @@
               <% } %>
 
             </div>
+
+              <% if (theListing.host_id == user.id) { %>
+              <p><a href="http://localhost:3000/listing/<%= theListing.id %>/edit">Edit Listing</a><p>
+                <% } %>
             <% } else { %>
             <h5>listing does not exist.</h5>
             <% } %>
 
-        </div>    
+        </div>   
+        </div>
     	</div>
 	</div>
   </body>

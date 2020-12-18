@@ -13,11 +13,14 @@
         <li class="topnav-right"><a href="/profile/host/<%= user.host_id %>" style="color:#FFFFFF">My Profile</a></li>
         <li class="topnav-right"><a style="color:#FFFFFF">Welcome, <%= user.host_id %></a></li> |
         <li><a href="/listing/create" style="color:#FFFFFF">Create New Listing</a></li>
+        <li><a href="/profile/host/<%= user.host_id %>/listings" style="color:#FFFFFF">My Listings</a></li>
       <% } else { %>
+        <li><a href="/profile/tenant/<%= user.tenant_id %>/bookings %>">My Bookings</a></li>
+        <li><a href="/profile/tenant/<%= user.tenant_id %>/booking-history %>">My Booking History</a></li>
         <li class="topnav-right"><a href="/profile/tenant/<%= user.tenant_id %>" style="color:#FFFFFF">My Profile</a></li>
         <li class="topnav-right"><a style="color:#FFFFFF">Welcome, <%= user.tenant_id %></a></li> |
       <% } %>
     <% } %>
   </ul>
-  
+
 <br>
