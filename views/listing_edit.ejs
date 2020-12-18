@@ -10,8 +10,7 @@
 
           <% include partials/navigation %>
           <h3><%= page %></h3><br>
-
-          <% if (listing.host_id != user.id) { %>
+          <% if (listing.host_id == user.host_id) { %>
             <form id="listing_edit-form">
               <input ID="name" name="name" style="margin-bottom:3px" type="text" value = "<%= listing.name %>"> Name</input><br>
               <textarea id="description" name="description" style="margin-bottom:3px"><%= listing.description %></textarea> Description<br>
@@ -126,9 +125,8 @@
 
 
           <% } else { %>
-            <h3><%= message %></h3>
+            <h5>You are not allowed to edit another user's listings.</h5>
           <% } %>
-
         </div>
     	</div>
 	</div>
